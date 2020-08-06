@@ -148,6 +148,7 @@ objects_in_water			= Objects_InWater
 objects_player_info			= Objects_PlayerHitStat
 objects_timer_3				= Objects_Timer3
 objects_timer_4 			= Objects_Timer4
+objects_slope_position		= Objects_Slope
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
