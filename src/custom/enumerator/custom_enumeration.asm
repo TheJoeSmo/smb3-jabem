@@ -132,6 +132,7 @@ objects_detection_flags 	= Objects_DetStat
     ;   $80-object touching "32 pixel partition" floor (if active)
 objects_enforce_page_chg 	= Objects_DisPatChng
 objects_splash_disable_cnt	= ObjSplash_DisTimer
+objects_quicksand_death_cnt	= Objects_QSandCtr
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
