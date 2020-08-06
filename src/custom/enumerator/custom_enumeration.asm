@@ -141,6 +141,10 @@ objects_detection_flags 	= Objects_DetStat
 objects_enforce_page_chg 	= Objects_DisPatChng
 objects_splash_disable_cnt	= ObjSplash_DisTimer
 objects_quicksand_death_cnt	= Objects_QSandCtr
+objects_in_water			= Objects_InWater
+    ;   Bit 0 - Set if Player's bbox bottom is HIGHER than object's bbox bottom
+    ;   Bit 1 - Set if Player's bbox left edge is to the LEFT of object's bbox left edge
+    ;   Bit 4 - Set if Player tail attacked an object
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
