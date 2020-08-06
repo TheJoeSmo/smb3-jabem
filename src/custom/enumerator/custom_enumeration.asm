@@ -123,6 +123,13 @@ objects_no_collide_timer	= Objects_Timer2
 objects_attributes 			= Objects_FlipBits
 objects_animation_frame 	= Objects_Frame
 objects_flashing_counter	= Objects_ColorCycle
+objects_detection_flags 	= Objects_DetStat
+    ; Object's detection bits:
+    ;   $01-hit wall right
+    ;   $02-hit wall left
+    ;   $04-hit ground
+    ;   $08-hit ceiling
+    ;   $80-object touching "32 pixel partition" floor (if active)
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
