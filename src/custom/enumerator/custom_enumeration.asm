@@ -122,6 +122,7 @@ objects_timer				= Objects_Timer
 objects_no_collide_timer	= Objects_Timer2
 objects_attributes 			= Objects_FlipBits
 objects_animation_frame 	= Objects_Frame
+objects_flashing_counter	= Objects_ColorCycle
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
