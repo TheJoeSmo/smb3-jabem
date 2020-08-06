@@ -145,6 +145,7 @@ objects_in_water			= Objects_InWater
     ;   Bit 0 - Set if Player's bbox bottom is HIGHER than object's bbox bottom
     ;   Bit 1 - Set if Player's bbox left edge is to the LEFT of object's bbox left edge
     ;   Bit 4 - Set if Player tail attacked an object
+objects_player_info			= Objects_PlayerHitStat
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
