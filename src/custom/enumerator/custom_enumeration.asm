@@ -149,6 +149,8 @@ objects_player_info			= Objects_PlayerHitStat
 objects_timer_3				= Objects_Timer3
 objects_timer_4 			= Objects_Timer4
 objects_slope_position		= Objects_Slope
+objects_target_x			= Objects_TargetingXVal
+objects_target_y			= Objects_TargetingYVal
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
