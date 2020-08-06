@@ -120,6 +120,7 @@ objects_v3					= Objects_Var3
 objects_v4					= Objects_Var4
 objects_timer				= Objects_Timer
 objects_no_collide_timer	= Objects_Timer2
+object_attributes 			= Objects_FlipBits
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
