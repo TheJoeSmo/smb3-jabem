@@ -152,6 +152,7 @@ objects_slope_position		= Objects_Slope
 objects_target_x			= Objects_TargetingXVal
 objects_target_y			= Objects_TargetingYVal
 objects_giant_handling		= Objects_IsGiant
+objects_offscreen_test		= Objects_UseShortHTest
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
