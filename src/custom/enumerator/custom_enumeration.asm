@@ -107,6 +107,7 @@ is_stuck_in_wall			= Player_LowClearance
 							; object info
 objects_states				= Objects_State
 objects_ids					= Level_ObjectID
+object_index 				= SlotIndexBackup
 objects_y					= Objects_Y
 objects_x					= Objects_X
 objects_x_velocity			= Objects_XVel
