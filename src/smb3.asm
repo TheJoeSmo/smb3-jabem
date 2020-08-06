@@ -106,8 +106,6 @@
     .byte $0D, <_1, $00
     .endm
 
-.include my_changes.asm
-
 ; This is used in video update streams; since the video address register
 ; takes the address high-then-low (contrary to 6502's normal low-then-high),
 ; this allows a 16-bit value but "corrects" it to the proper endianness.
