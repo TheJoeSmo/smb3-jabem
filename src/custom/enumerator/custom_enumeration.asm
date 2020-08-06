@@ -130,6 +130,7 @@ objects_detection_flags 	= Objects_DetStat
     ;   $04-hit ground
     ;   $08-hit ceiling
     ;   $80-object touching "32 pixel partition" floor (if active)
+objects_enforce_page_chg 	= Objects_DisPatChng
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
