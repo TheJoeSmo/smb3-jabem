@@ -1,0 +1,1 @@
+para_boss_flip:  .byte SPR_HFLIP, $00
