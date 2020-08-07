@@ -339,3 +339,12 @@ junction_vert_scroll_lo			= Level_Jct_VS 		; Level junction vertical scroll valu
 graphics_buffer_idx 			= Graphics_BufCnt
 graphics_buffer 				= Graphics_Buffer
 status_bar_update_frame 		= StatusBar_UpdFl
+
+
+; object functions
+
+object_handle_movement			= Object_Move
+object_handle_ground			= Object_HitGround
+determine_horizontal_player_relativity	= Level_ObjCalcXDiffs
+object_face_other_direction		= Object_FlipFace
+object_handle_external_collision	= Object_HandleBumpUnderneath
