@@ -138,6 +138,12 @@ objects_attributes 			= Objects_FlipBits
 objects_animation_frame 	= Objects_Frame
 objects_flashing_counter	= Objects_ColorCycle
 objects_detection_flags 	= Objects_DetStat
+object_hit_right_wall		= %00000001
+object_hit_left_wall		= %00000010
+object_hit_wall 			= %00000011
+object_hit_ground			= %00000100
+object_hit_ceiling			= %00001000
+object_hit_partition		= %10000000
     ; Object's detection bits:
     ;   $01-hit wall right
     ;   $02-hit wall left
