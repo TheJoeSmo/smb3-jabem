@@ -18,6 +18,7 @@ is_sinking					= Player_SandSink
 is_in_pipe 					= Player_InPipe
 in_air						= Player_InAir ; if player is in the air
 last_in_air					= Player_InAir_OLD
+is_paused 					= Player_HaltGame
 
 end_level_counter			= Player_EndLevel
 is_shaking_counter			= Player_VibeDisable
