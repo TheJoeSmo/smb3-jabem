@@ -132,6 +132,7 @@ objects_v13					= Objects_Var13
 objects_v14					= Objects_Var14
 objects_timer				= Objects_Timer
 objects_no_collide_timer	= Objects_Timer2
+objects_sprite_attributes	= Objects_SprAttr
 objects_attributes 			= Objects_FlipBits
 objects_animation_frame 	= Objects_Frame
 objects_flashing_counter	= Objects_ColorCycle
