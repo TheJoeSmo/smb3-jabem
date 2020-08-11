@@ -167,6 +167,11 @@ objects_giant_handling		= Objects_IsGiant
 objects_offscreen_test		= Objects_UseShortHTest
 objects_health				= Objects_HitCount
 objects_sprite_visability	= Objects_SprHVis
+objects_sprite_offset		= Object_SprRAM
+object_sprite_y 			= Objects_SpriteY
+objects_sprite_v_visability	= Objects_SprVVis
+
+
 sprite_data 				= Sprite_RAM
 sprite_data_y				= Sprite_RAM
 sprite_data_graphic			= Sprite_RAM+1
