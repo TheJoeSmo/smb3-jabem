@@ -365,3 +365,4 @@ object_handle_ground			= Object_HitGround
 determine_horizontal_player_relativity	= Level_ObjCalcXDiffs
 object_face_other_direction		= Object_FlipFace
 object_handle_external_collision	= Object_HandleBumpUnderneath
+object_quick_calc_position		=Object_CalcSpriteXY_NoHi
