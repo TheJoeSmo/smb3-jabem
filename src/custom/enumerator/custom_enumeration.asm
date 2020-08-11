@@ -167,6 +167,18 @@ objects_giant_handling		= Objects_IsGiant
 objects_offscreen_test		= Objects_UseShortHTest
 objects_health				= Objects_HitCount
 objects_sprite_visability	= Objects_SprHVis
+sprite_data 				= Sprite_RAM
+sprite_data_y				= Sprite_RAM
+sprite_data_graphic			= Sprite_RAM+1
+sprite_data_attributes		= Sprite_RAM+2
+sprite_pal_0				= %00000000
+sprite_pal_1				= %00000001
+sprite_pal_2				= %00000010
+sprite_pal_3				= %00000011
+sprite_priority				= %00100000
+sprite_horizontal_flip		= %01000000
+sprite_vertical_flip		= %10000000
+sprite_data_x				= Sprite_RAM+3
 
 							; block update queues
 block_event_lo_y			= Level_BlockChgYLo
