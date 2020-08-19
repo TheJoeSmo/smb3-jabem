@@ -1,2 +1,2 @@
 	
-	.byte $D9, $DB, $DB, $D9, $D9, $DB, $EB, $EB
+	.byte $C1, $C3, $C5, $E1, $E3, $E5
