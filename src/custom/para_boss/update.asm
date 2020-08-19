@@ -23,7 +23,6 @@ para_boss_update:
     LDY #$00     ; Y = 0
 
     JSR para_boss_draw  ; Draw Paragoomba
-    JSR Object_HandleBumpUnderneath  ; (Indirectly) Handle getting bumped underneath
 
     LDA para_state, x
     JSR DynJump
