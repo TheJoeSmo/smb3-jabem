@@ -4,7 +4,7 @@ para_boss_action_summon_micro_goomba:
 
     ; Return to first internal state
     LDA #$00
-    STA Objects_Var4,X
+    STA para_state, x
 
     ; Set timer to $80
     LDA #$80
