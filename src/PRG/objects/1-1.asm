@@ -1,6 +1,6 @@
     .byte $01   ; Unknown purpose
 
-    .byte OBJ_GOOMBA, $0E, $19
+    .byte $0F, $0E, $19         ; Make para boss
     .byte OBJ_VENUSFIRETRAP, $16, $17
     .byte OBJ_GOOMBA, $21, $19
     .byte OBJ_REDTROOPA, $24, $16
