@@ -310,7 +310,7 @@ Object_AttrFlags:
     .byte OAT_BOUNDBOX01 | OAT_FIREIMMUNITY | OAT_HITNOTKILL    ; Object $0C - OBJ_POWERUP_STARMAN
     .byte OAT_BOUNDBOX01 | OAT_FIREIMMUNITY | OAT_HITNOTKILL    ; Object $0D - OBJ_POWERUP_MUSHROOM
     .byte OAT_BOUNDBOX09 | OAT_HITNOTKILL   ; Object $0E - OBJ_BOSS_KOOPALING
-    .byte OAT_BOUNDBOX00    ; Object $0F
+    .include "custom/para_boss/attributes/hitbox.asm"    ; Object $0F
     .byte OAT_BOUNDBOX00    ; Object $10
     .byte OAT_BOUNDBOX00    ; Object $11
     .byte OAT_BOUNDBOX00    ; Object $12
