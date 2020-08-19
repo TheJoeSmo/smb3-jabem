@@ -1,6 +1,6 @@
 ; para boss init routine
 
-init_para_boss:
+para_boss_init:
     JSR Level_ObjCalcXDiffs
 
     ; Face Player when appearing
