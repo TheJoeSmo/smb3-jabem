@@ -30,6 +30,7 @@ para_boss_update:
     .word para_boss_action_flutter_down             ; 0: Paragoomba flutters down
     .word para_boss_action_fly_above_player         ; 1: Fly above Player
     .word para_boss_action_summon_micro_goomba      ; 2: Drop Micro goombas on Player
+    .word para_boss_action_do_nothing
 
 
 
