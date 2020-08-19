@@ -239,18 +239,15 @@ falling_to_king_flag		= Player_FallToKing
 
 world_x_hi					= World_Map_XHi
 world_x_lo					= World_Map_X
-world_y_hi					= World_Map_YHi
 world_y_lo					= World_Map_Y
 world_to_warp				= Map_Warp_PrevWorld
 world_last_y				= Map_Entered_Y
 world_last_y_lo				= Map_Entered_Y
-world_last_y_hi				= Map_Entered_YHi
 world_last_x_hi				= Map_Entered_XHi
 world_last_x_lo				= Map_Entered_X
 world_prev_x_lo				= Map_Previous_X
 world_prev_x_hi				= Map_Previous_XHi
 world_prev_y_lo				= Map_Previous_Y
-world_prev_y_hi				= Map_Previous_YHi
 
 world_bonus_spawn_x_lo		= Map_BonusAppX
 world_bonus_spawn_x_hi		= Map_BonusAppXHi
