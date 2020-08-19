@@ -21,11 +21,11 @@ para_boss_update:
     LDY #$00     ; Y = 0
 
     AND Objects_Var5, x
-    BEQ PRG004_AF8C  ; If mask results in zero, jump to PRG004_AF8C
+    BEQ +  ; If mask results in zero, jump to +
 
     INY      ; Y = 1
 
-PRG004_AF8C:
++:
     TYA
     STA Objects_Frame,X  ; Set frame appropriately
 
