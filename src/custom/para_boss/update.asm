@@ -12,6 +12,8 @@ para_boss_update:
     JMP para_boss_draw  ; Draw Paragoomba and don't come back!
 
 +:
+    JSR para_hit_test
+
     LDY LRBounce_Vel
     INY
     INY
