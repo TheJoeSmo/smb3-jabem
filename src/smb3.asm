@@ -17,6 +17,7 @@
 ; ^(\s*[BJ].. PRG005_[0-9A-F][0-9A-F][0-9A-F][0-9A-F]).*    --> \1\n        (Formatting linebreak after B.. J..)
 ; \s*;.*                            --> (nothing)   (Cleans off remaining address constants)
 
+    .include custom/enumerator/custom_enumeration.asm
 
 ; Handy pseudo instructions... only make sense in the context of CMPing a number...
 .macro BLT _1
