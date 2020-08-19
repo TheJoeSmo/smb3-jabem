@@ -125,7 +125,7 @@ ObjectGroup00_CollideJumpTable:
     .word ObjHit_StarOrSuit ; Object $0C - OBJ_POWERUP_STARMAN
     .word ObjHit_PUpMush    ; Object $0D - OBJ_POWERUP_MUSHROOM
     .word ObjHit_Koopaling  ; Object $0E - OBJ_BOSS_KOOPALING
-    .word para_boss_hit  ; Object $0F
+    .word ObjHit_DoNothing  ; Object $0F
     .word ObjHit_DoNothing  ; Object $10
     .word ObjHit_DoNothing  ; Object $11
     .word ObjHit_DoNothing  ; Object $12
