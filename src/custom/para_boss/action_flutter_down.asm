@@ -53,7 +53,7 @@ para_boss_action_flutter_down:
     JMP ++  ; Jump to ++
 
 +:
-    INC Objects_Var4,X  ; Var4++ (next internal state)
+    INC para_state, x  ; Var4++ (next internal state)
 
 ++:
     LDA Objects_DetStat,X
