@@ -20,15 +20,6 @@ para_boss_update:
 
     LDY #$00     ; Y = 0
 
-    AND Objects_Var5, x
-    BEQ +  ; If mask results in zero, jump to +
-
-    INY      ; Y = 1
-
-+:
-    TYA
-    STA Objects_Frame,X  ; Set frame appropriately
-
     JSR para_boss_draw  ; Draw Paragoomba
     JSR Object_HandleBumpUnderneath  ; (Indirectly) Handle getting bumped underneath
 
