@@ -10,3 +10,4 @@
 	.include "custom/para_boss/action_do_nothing.asm"
 	.include "custom/para_boss/summon_micro_goomba.asm"
 	.include "custom/para_boss/hit.asm"
+	.include "custom/para_boss/hit_test.asm"
