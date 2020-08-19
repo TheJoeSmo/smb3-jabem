@@ -25,7 +25,7 @@ para_hit_test:
     STA player_sound_queue
 
 ; Give the player some points
-    LDA #$07
+    LDA #$09
     JSR Score_PopUp
 
 ; Player Y Vel = -$30 (bounce off)
