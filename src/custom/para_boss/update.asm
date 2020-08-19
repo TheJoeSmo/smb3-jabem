@@ -1,5 +1,5 @@
-Paragoomba_XVelAccel:   .byte $01, -$01
-Paragoomba_XVelLimit:   .byte $14, $EC
+para_boss_y_vel_limit:   .byte $01, -$01
+para_boss_x_vel_limit:   .byte $14, $EC
 para_boss_mask:
     .byte $04, $08, $08, $08, $10
 
