@@ -30,7 +30,7 @@ para_boss_update:
     STA Objects_Frame,X  ; Set frame appropriately
 
     JSR para_boss_draw  ; Draw Paragoomba
-    JSR PRG004_AF1A  ; (Indirectly) Handle getting bumped underneath
+    JSR Object_HandleBumpUnderneath  ; (Indirectly) Handle getting bumped underneath
 
     LDA Objects_Var4,X
     JSR DynJump
