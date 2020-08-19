@@ -1,0 +1,2 @@
+
+	.byte OA1_PAL3 | OA1_HEIGHT32 | OA1_WIDTH16
