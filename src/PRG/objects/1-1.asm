@@ -1,7 +1,6 @@
     .byte $01   ; Unknown purpose
 
     .byte $0F, $0E, $19         ; Make para boss
-    .byte OBJ_VENUSFIRETRAP, $16, $17
     .byte OBJ_GOOMBA, $21, $19
     .byte OBJ_REDTROOPA, $24, $16
     .byte OBJ_GOOMBA, $34, $18
@@ -14,5 +13,6 @@
     .byte OBJ_GREENPIRANHA, $70, $18
     .byte OBJ_GREENPIRANHA_FIRE, $74, $17
     .byte OBJ_REDTROOPA, $83, $17
+    .byte OBJ_ENDLEVELCARD, $A8, $15
     .byte OBJ_ENDLEVELCARD, $A8, $15
     .byte $FF   ; Terminator
