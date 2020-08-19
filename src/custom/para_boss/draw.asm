@@ -113,18 +113,18 @@ _objects_sprite_visability = Temp_Var3
     ORA objects_sprite_attributes, x    ; OR in the sprite attributes
 
     ASL Temp_Var9
-    BCC PRG004_B986  ; If Temp_Var9 was assigned to $00 at start, we jump to PRG004_B986
+    BCC +  ; If Temp_Var9 was assigned to $00 at start, we jump to +
 
     AND #<~SPR_HFLIP  ; Clear horizontal flip if Temp_Var9 was $80 at start
 
-PRG004_B986:
++:
     STA sprite_data+$02, y     ; Set left sprite attribute
 
-    BCC PRG004_B98D  ; If Temp_Var9 was assigned to $00 at start, we jump to PRG004_B98D
+    BCC +  ; If Temp_Var9 was assigned to $00 at start, we jump to +
 
     ORA #SPR_HFLIP   ; Set horizontal flip if Temp_Var9 was $80 at start
 
-PRG004_B98D:
++:
     STA sprite_data+$06, y     ; Set right sprite attribute
 
     LDA Objects_Frame,X
@@ -140,7 +140,7 @@ PRG004_B98D:
     LDA ObjectGroup03_PatternSets,X  ; Get the appropriate pattern for this frame
 
     BIT Temp_Var1
-    BVS PRG004_B9AF  ; If horizontally flipped, jump to PRG004_B9AF
+    BVS +  ; If horizontally flipped, jump to +
 
     ; Store left sprite pattern
     STA sprite_data+$01, y
@@ -150,9 +150,9 @@ PRG004_B98D:
     ; Store right sprite pattern
     STA sprite_data+$05, y
 
-    JMP PRG004_B9B8  ; Jump to PRG004_B9B8
+    JMP ++  ; Jump to ++
 
-PRG004_B9AF:
++:
     ; Store right sprite pattern
     STA sprite_data+$05, y
 
@@ -161,8 +161,6 @@ PRG004_B9AF:
     ; Store left sprite pattern
     STA sprite_data+$01, y
 
-PRG004_B9B8:
+++:
     LDX SlotIndexBackup     ; X = object slot index
-
-PRG004_B9BA:
     RTS      ; Return
