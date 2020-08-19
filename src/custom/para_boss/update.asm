@@ -23,7 +23,7 @@ para_boss_update:
     JSR para_boss_draw  ; Draw Paragoomba
     JSR Object_HandleBumpUnderneath  ; (Indirectly) Handle getting bumped underneath
 
-    LDA Objects_Var4,X
+    LDA para_state, x
     JSR DynJump
 
     ; THESE MUST FOLLOW DynJump FOR THE DYNAMIC JUMP TO WORK!!
