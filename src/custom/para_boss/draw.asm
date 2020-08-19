@@ -163,4 +163,6 @@ _objects_sprite_visability = Temp_Var3
 
 ++:
     LDX SlotIndexBackup     ; X = object slot index
+
++rts
     RTS      ; Return
