@@ -1,2 +1,2 @@
 
-	.byte OPTS_SETPT6 | $4F
+	.byte OPTS_SETPT6 | 126
