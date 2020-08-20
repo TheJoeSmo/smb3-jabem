@@ -60,9 +60,9 @@ para_boss_right:
     DEC objects_x_velocity, x
 
     LDA objects_x_velocity, x
-    CMP #-64
+    CMP #-32
     BPL +
-    LDA #-64
+    LDA #-32
     STA objects_x_velocity, x
 +
 
@@ -83,9 +83,9 @@ para_boss_left:
     INC objects_x_velocity, x
 
     LDA objects_x_velocity, x
-    CMP #64
+    CMP #32
     BMI +
-    LDA #64
+    LDA #32
     STA objects_x_velocity, x
 +
 
@@ -94,24 +94,43 @@ para_boss_left:
 
 
 para_boss_hover_over_player:
+    LDY #$00
+    JSR Object_CalcCoarseYDiff
 
-    JSR Level_ObjCalcYDiffs
+    LDA Temp_Var15
+    BPL para_boss_rise_quickest     ; If below player, get above them
 
-    LDA Temp_Var16
-    CMP #$20
-    BMI para_boss_rise_quickest
+    LDA Temp_Var15
+    CLC
+    ADC #$18
+    BCS +
 
-    LDA Temp_Var16
-    CMP #$60
-    BMI para_boss_rise_quicker
+    CLC
+    ADC #$02
+    BCS ++
 
-    LDA Temp_Var16
-    CMP #$68
-    BMI para_boss_lower
+    CLC
+    ADC #$04
+    BCS +++
 
-    CMP #$78
-    BMI para_boss_lower_quicker
-    JMP para_boss_lower
+    INY
+
++++
+    INY
+
+++
+    INY
+
++
+
+    TYA
+
+    JSR DynJump
+
+    .word para_boss_rise_quickest
+    .word para_boss_rise
+    .word para_boss_lower
+    .word para_boss_lower_quickest
 
 
 para_boss_handle_horizontal_velocity:
