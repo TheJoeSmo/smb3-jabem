@@ -1,3 +1,5 @@
+para_boss_pixel_difference = $38
+
 para_boss_action_fly_above_player:
 
     ; Var3 += 3
@@ -11,7 +13,7 @@ para_boss_action_fly_above_player:
     BNE +  ; If Player is higher than Paragoomba, jump to +
 
     LDA Temp_Var16
-    CMP #$38
+    CMP #para_boss_pixel_difference
     BLT +  ; If Paragoomba is not sufficiently above Player, jump to +
 
     INC Objects_YVel,X  ; A little lower
