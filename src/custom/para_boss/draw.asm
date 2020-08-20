@@ -4,7 +4,6 @@ _object_sprite_y = Temp_Var1
 _objects_sprite_v_visability = Temp_Var5
 
 para_boss_draw:
-    JSR para_boss_handle_frame
     JSR Object_ShakeAndCalcSprite    ; Calculate sprite data
 
     LDX object_index         ; X = object slot index
@@ -55,10 +54,4 @@ para_boss_draw:
     JSR Object_Draw24x16Sprite ; Draw lower half of Big Bertha
 
     LDX object_index         ; X = object slot index
-    RTS
-
-
-para_boss_handle_frame:
-    LDA #$00
-    STA objects_animation_frame,X
     RTS
