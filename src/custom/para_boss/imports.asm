@@ -13,3 +13,6 @@
 	.include "custom/para_boss/handle_horizontal_velocity.asm"
 	.include "custom/para_boss/handle_vertical_velocity.asm"
 	.include "custom/para_boss/apply_velocity.asm"
+	.include "custom/para_boss/action_prep_attack.asm"
+	.include "custom/para_boss/action_prep_long_attack.asm"
+	.include "custom/para_boss/action_be_slow.asm"
