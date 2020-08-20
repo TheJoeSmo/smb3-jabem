@@ -14,9 +14,9 @@ para_boss_rise:
     DEC objects_y_velocity, x
 
     LDA objects_y_velocity, x
-    CMP #-32
+    CMP #-50
     BPL +
-    LDA #-32
+    LDA #-50
     STA objects_y_velocity, x
 +
 
@@ -34,9 +34,9 @@ para_boss_lower:
     INC objects_y_velocity, x
 
     LDA objects_y_velocity, x
-    CMP #32
+    CMP #50
     BMI +
-    LDA #32
+    LDA #50
     STA objects_y_velocity, x
 +
 
@@ -60,9 +60,9 @@ para_boss_right:
     DEC objects_x_velocity, x
 
     LDA objects_x_velocity, x
-    CMP #-32
+    CMP #-50
     BPL +
-    LDA #-32
+    LDA #-50
     STA objects_x_velocity, x
 +
 
@@ -83,9 +83,9 @@ para_boss_left:
     INC objects_x_velocity, x
 
     LDA objects_x_velocity, x
-    CMP #32
+    CMP #50
     BMI +
-    LDA #32
+    LDA #50
     STA objects_x_velocity, x
 +
 
