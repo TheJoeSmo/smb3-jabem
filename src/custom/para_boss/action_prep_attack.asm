@@ -1,7 +1,7 @@
 
 
 para_boss_action_prep_attack:
-	LDA #$40
+	LDA #$20
 	STA objects_timer, x
 
 	INC para_state, x
