@@ -12,8 +12,7 @@ para_boss_draw:
     LDA objects_animation_frame, x
     TAX
     LDA frame_count_helper, x
-    ADC Temp_Var6               ; Add to starting tile
-    STA Temp_Var6               ; Set as starting tile
+    PHA
     TAX
 
     LDA Temp_Var3
@@ -35,7 +34,8 @@ para_boss_draw:
     ADC #12
     TAY
 
-    LDX Temp_Var6   ; X = starting tile
+    PLA
+    TAX
 
     LDA Temp_Var3
     BMI +                       ; If vertically flipped, jump to +

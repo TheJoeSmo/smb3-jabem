@@ -82,7 +82,7 @@ ObjectGroup00_NormalJumpTable:
     .word ObjNorm_StarOrSuit; Object $0C - OBJ_POWERUP_STARMAN
     .word ObjNorm_PUpMush   ; Object $0D - OBJ_POWERUP_MUSHROOM
     .word ObjNorm_Koopaling ; Object $0E - OBJ_BOSS_KOOPALING
-    .word para_boss_update ; Object $0F
+    .word para_boss_update_setup ; Object $0F
     .word ObjNorm_DoNothing ; Object $10
     .word ObjNorm_DoNothing ; Object $11
     .word ObjNorm_DoNothing ; Object $12
@@ -404,6 +404,7 @@ ObjectGroup00_PatternStarts:
 ObjectGroup00_PatternSets:
     ; (End restricted alignment space)
 ObjP00:
+ObjP0F:
 ObjP03:
 ObjP07:
 ObjP0E:
@@ -438,10 +439,8 @@ ObjP21: .byte $51, $51
 ObjP22: .byte $53, $53
 ObjP23: .byte $55, $55
 ObjP08: .byte $FB, $FB, $FB, $FB, $BB, $B9, $B9, $BB, $BF, $BD
-ObjP0F:
-    .include "custom/para_boss/attributes/graphics_data.asm"
 
-    .include "custom/para_boss/imports.asm"
+    .include "custom/para_boss/init.asm"
 
 SpinyCheep_XVel:
     .byte 8, -8

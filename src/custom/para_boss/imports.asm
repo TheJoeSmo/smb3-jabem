@@ -1,7 +1,6 @@
 ; Imports for para boss
 
 	.include "custom/para_boss/enumerations.asm"
-	.include "custom/para_boss/init.asm"
 	.include "custom/para_boss/update.asm"
 	.include "custom/para_boss/draw.asm"
 	.include "custom/para_boss/action_flutter_down.asm"
