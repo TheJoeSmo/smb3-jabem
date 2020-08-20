@@ -24,6 +24,9 @@ para_hit_test:
     ORA #SND_PLAYERSWIM
     STA player_sound_queue
 
+    LDA #$10
+    STA objects_no_collide_timer, x
+
 ; Give the player some points
     LDA #$09
     JSR Score_PopUp
