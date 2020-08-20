@@ -8,5 +8,6 @@
 	.include "custom/para_boss/action_fly_above_player.asm"
 	.include "custom/para_boss/action_summon_micro_goomba.asm"
 	.include "custom/para_boss/action_do_nothing.asm"
+	.include "custom/para_boss/action_hover_over_player.asm"
 	.include "custom/para_boss/summon_micro_goomba.asm"
 	.include "custom/para_boss/hit_test.asm"
