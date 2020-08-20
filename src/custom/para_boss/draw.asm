@@ -1,4 +1,4 @@
-frame_count_helper: .byte 0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 41 
+frame_count_helper: .byte 0, 6, 12, 18, 24, 30, 36 
 
 _object_sprite_y = Temp_Var1
 _objects_sprite_v_visability = Temp_Var5
