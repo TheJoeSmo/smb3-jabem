@@ -16,3 +16,8 @@
 	.include "custom/para_boss/action_prep_attack.asm"
 	.include "custom/para_boss/action_prep_long_attack.asm"
 	.include "custom/para_boss/action_be_slow.asm"
+	.include "custom/para_boss/action_prep_short_attack.asm"
+	.include "custom/para_boss/action_summon_goomba.asm"
+	.include "custom/core/generator/prepare_new_goomba.asm"
+	.include "custom/core/generator/prepare_new_object.asm"
+	.include "custom/core/generator/prepare_new_object_or_abort.asm"
