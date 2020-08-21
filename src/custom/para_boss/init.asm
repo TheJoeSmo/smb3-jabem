@@ -9,6 +9,6 @@ para_boss_init:
     LDA para_boss_flip, y
     STA objects_attributes, x
 
-    LDA #$04
+    LDA #$01
     STA para_state, x
     RTS
