@@ -6,7 +6,9 @@ _position_lo_x = Temp_Var1
 _position_hi_x = Temp_Var2
 _position_lo_y = Temp_Var3
 _position_hi_y = Temp_Var4
-_player_horizontal_difference = Temp_Var5
+_velocity_x = Temp_Var5
+_velocity_y = Temp_Var6
+_player_horizontal_difference = Temp_Var7
 
 goomba_flip_bits:    .byte SPR_HFLIP, $00
 
@@ -23,7 +25,7 @@ prepare_new_goomba:
     LDA _position_hi_y
     STA objects_hi_y, x
 
-    JSR determine_horizontal_player_relativity
+    JSR Level_ObjCalcXDiffs
     STY _player_horizontal_difference
 
     LDA goomba_flip_bits, y         ; Set the flipped bit dependent if the player is the left or right
@@ -35,11 +37,17 @@ prepare_new_goomba:
     LDA #SPR_PAL3                   ; Use the correct palette
     STA objects_sprite_attributes, x
 
-    LDA #$28
-    STA Objects_Var1, x             ; Have velocity
+    LDA #$40
+    STA Objects_Timer4, x
 
-    LDA #$ff
-    STA objects_sprite_visability, x
+    LDA #$10
+    STA objects_no_collide_timer, x
+
+    LDA _velocity_y
+    STA objects_y_velocity, x
+
+    LDA _velocity_x
+    STA objects_x_velocity, x
 
     LDX object_index                ; Restore object index
     RTS
