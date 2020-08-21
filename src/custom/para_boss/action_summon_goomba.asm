@@ -1,6 +1,17 @@
 
 
+para_boss_action_summon_para_goomba:
+    LDA #OBJ_PARAGOOMBA
+    STA Temp_Var7
+    BNE para_boss_action_summon_enemy
+
+
 para_boss_action_summon_goomba:
+    LDA #OBJ_GOOMBA
+    STA Temp_Var7
+
+
+para_boss_action_summon_enemy:
     LDA objects_timer, x
     BNE ++
 
@@ -40,7 +51,7 @@ para_boss_action_summon_goomba:
 
 +
 
-    JSR prepare_new_goomba
+    JSR prepare_new_enemy
     INC para_state, x
 
 ++
