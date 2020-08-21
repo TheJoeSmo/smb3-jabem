@@ -8,11 +8,12 @@ _position_lo_y = Temp_Var3
 _position_hi_y = Temp_Var4
 _velocity_x = Temp_Var5
 _velocity_y = Temp_Var6
-_player_horizontal_difference = Temp_Var7
+_enemy_id = Temp_Var7
+_player_horizontal_difference = Temp_Var8
 
 goomba_flip_bits:    .byte SPR_HFLIP, $00
 
-prepare_new_goomba:
+prepare_new_enemy:
     JSR prepare_new_object_or_abort
 
     ; Set position
@@ -31,7 +32,7 @@ prepare_new_goomba:
     LDA goomba_flip_bits, y         ; Set the flipped bit dependent if the player is the left or right
     STA Objects_FlipBits, x
 
-    LDA #OBJ_GOOMBA
+    LDA _enemy_id
     STA objects_ids, x              ; Treat this as a goomba
 
     LDA #SPR_PAL3                   ; Use the correct palette
