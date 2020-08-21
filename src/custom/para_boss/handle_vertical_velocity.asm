@@ -1,11 +1,13 @@
 
 para_boss_vertical_distance_ranges:
     .byte $18, $1A, $1E, $00
-    .byte $10, $14, $1E, $00 
+    .byte $14, $1A, $1E, $00
+    .byte $18, $1A, $1E, $00
 
 para_boss_vertical_distance_speeds:
     .byte $01, $03, $04, $07
-    .byte $03, $04, $04, $05
+    .byte $02, $04, $04, $06
+    .byte $02, $03, $05, $06
 
 
 para_boss_rise_quickest:
