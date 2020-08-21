@@ -13,7 +13,7 @@ prepare_new_object:
     STA objects_no_collide_timer, x
     STA objects_x_velocity, x
     STA objects_y_velocity, x
-    STA object_attributes, x
+    STA objects_attributes, x
     STA objects_animation_frame, x
     STA objects_flashing_counter, x
     STA objects_detection_flags, x
@@ -23,7 +23,7 @@ prepare_new_object:
 
     ; Clear some more variables (object slots 0 to 5 ONLY)
     STA objects_enforce_page_chg, x
-    STA splash_disable_counter, x
+    STA objects_splash_disable_cnt, x
     STA objects_quicksand_death_cnt, x
     STA objects_in_water, x
 
