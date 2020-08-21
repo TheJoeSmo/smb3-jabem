@@ -9,6 +9,7 @@ para_boss_action_be_slow:
 
     +
 
+para_boss_action_be_slow_dirty:
     LDA tick_counter
     AND #%00001000
     CLC
