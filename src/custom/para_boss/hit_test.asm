@@ -13,7 +13,16 @@ para_hit_test:
     LDA para_state_hittable, y
     BEQ ++ 								; If hittable, jump
 
-    JMP Player_HurtIfNotDieOffBehind    ; Hurt Player and don't come back!
+    LDA #$00
+    ORA Player_IsDying      ; ORA Player_IsDying      ; If Player is dying...
+    ORA Player_OffScreen    ; ... off-screen ...
+    ORA Player_Behind_En    ; ... or behind the scenes ...
+    BNE +++     ; ... jump to +++ (RTS)
+
+    JSR Player_GetHurt  ; Otherwise, hurt Player!
+
++++:
+    RTS      ; Return
 
 ++
     LDA player_y_vel
