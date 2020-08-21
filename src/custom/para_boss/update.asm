@@ -19,16 +19,16 @@ para_boss_dirty_update:
     JSR DynJump
 
     ; THESE MUST FOLLOW DynJump FOR THE DYNAMIC JUMP TO WORK!!
-    .word para_boss_action_flutter_down             ; 0: Paragoomba flutters down
-    .word para_boss_action_fly_above_player         ; 1: Fly above Player
-    .word $0000                                     ; 2: 
-    .word para_boss_action_do_nothing               ; 3: Debug
+    .word para_boss_action_do_nothing               ; 0: Debug
 
-    .word para_boss_action_prep_strong_attack       ; 4: Set the time for the next action
-    .word para_boss_hover_over_player               ; 5: Fly around for a while
+    .word para_boss_action_prep_strong_attack       ; 1: Set the time for the next action
+    .word para_boss_hover_over_player               ; 2: Fly around for a while
+    .word para_boss_action_determine_attack         ; 3: Figure out the attack to use
+    .word $0000
 
-    .word para_boss_action_prep_attack              ; 6: Set the time for the next action
-    .word para_boss_action_be_slow                  ; 7: Fly around slowly
+    .word para_boss_action_prep_attack              ; 5: Set the time for the next action
+    .word para_boss_action_be_slow                  ; 6: Fly around slowly
+    .word para_boss_do_flying
 
     .word para_boss_action_prep_attack              ; 8: Set time until spawning micro goombas
     .word para_boss_action_summon_micro_goomba      ; 9: Spawn micro goombas
@@ -37,12 +37,18 @@ para_boss_dirty_update:
     .word para_boss_action_prep_short_attack        ; C: Set time until next spawn
     .word para_boss_action_summon_micro_goomba      ; D: Spawn micro goombas
     .word para_boss_action_prep_short_attack        ; E: Set time until next spawn
+    .word para_boss_action_summon_micro_goomba      ; F: Spawn micro goombas
+    .word para_boss_action_prep_short_attack        ; 10: Set time until next spawn
 
-    .word para_boss_action_prep_attack              ; F: Set the time for the next action
-    .word para_boss_hover_over_player               ; 10: Fly around for a while
+    .word para_boss_do_flying                       ; 11: Jump to state 1
+    .word $0000
 
-    .word para_boss_action_prep_short_attack        ; 11: Set the time for the next action
-    .word para_boss_action_summon_goomba            ; 12: Spawn a goomba
+    .word para_boss_action_prep_short_attack        ; 13: Set the time for the next action
+    .word para_boss_action_summon_goomba            ; 14: Spawn a goomba
 
-    .word para_boss_action_prep_attack              ; 13: Set the time for the next action
-    .word para_boss_hover_over_player               ; 14: Fly around for a while
+    .word para_boss_do_flying                       ; 15: Jump to state 1
+
+    .word para_boss_action_prep_short_attack        ; 16: Set the time for the next action
+    .word para_boss_action_summon_para_goomba       ; 17: Spawn a paragoomba
+
+    .word para_boss_do_flying                       ; 18: Jump to state 1
