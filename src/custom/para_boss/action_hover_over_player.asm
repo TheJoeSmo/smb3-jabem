@@ -8,15 +8,6 @@ para_boss_hover_over_player:
     BNE +
 
 ; Change state (updates next frame)
-    JSR Object_CalcCoarseXDiff
-
-    LDA Temp_Var15
-    CLC
-    ADC #$20
-    CMP #$40
-    BLT +
-
-; Insure the player is fairly close to the boss
     LDA #$06
     STA para_state, x    
 
