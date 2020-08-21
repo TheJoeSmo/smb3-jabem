@@ -7,9 +7,8 @@ para_boss_hover_over_player:
     LDA objects_timer, x
     BNE +
 
-; Change state (updates next frame)
-    LDA #$06
-    STA para_state, x    
+    INC para_state, x    
+    JMP para_boss_dirty_update
 
 +
 
