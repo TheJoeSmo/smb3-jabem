@@ -7,4 +7,7 @@ para_boss_action_summon_micro_goomba:
 
     +
 
-    JMP para_boss_action_be_slow_dirty
+    LDA #$03
+    STA objects_animation_frame, x
+
+    JMP para_boss_action_be_slow_without_animation
