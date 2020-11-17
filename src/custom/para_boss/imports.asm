@@ -22,3 +22,4 @@
 	.include "custom/core/generator/prepare_new_object.asm"
 	.include "custom/core/generator/prepare_new_object_or_abort.asm"
 	.include "custom/para_boss/action_determine_attack.asm"
+	.include "custom/para_boss/hit_interrupt.asm"
