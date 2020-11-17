@@ -17,6 +17,7 @@ para_boss_action_be_slow_dirty:
     ROR A 
     STA objects_animation_frame, x
 
+para_boss_action_be_slow_without_animation:
 	LDA #$08
     STA Temp_Var14      ; Slowly go above player and slow vertical speeds
     JSR para_boss_handle_vertical_velocity
