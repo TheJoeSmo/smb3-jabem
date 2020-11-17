@@ -60,6 +60,10 @@ para_boss_action_summon_enemy:
     JSR prepare_new_enemy
     INC para_state, x
 
+
 ++
 
-    JMP para_boss_action_be_slow_dirty
+    LDA #$03
+    STA objects_animation_frame, x
+
+    JMP para_boss_action_be_slow_without_animation
