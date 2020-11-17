@@ -1,5 +1,11 @@
 
 
+para_boss_action_summon_flying_para_goomba:
+    LDA #OBJ_PARAGOOMBAWITHMICROS
+    STA Temp_Var7
+    BNE para_boss_action_summon_enemy
+
+
 para_boss_action_summon_para_goomba:
     LDA #OBJ_PARAGOOMBA
     STA Temp_Var7
