@@ -57,3 +57,7 @@ para_boss_dirty_update:
     .word para_boss_action_summon_flying_para_goomba; 1A: Spawn a flying paragoomba
 
     .word para_boss_do_flying                       ; 1B: Jump to state 1
+
+    .word para_boss_prep_get_hit                    ; 1C: Got hit
+    .word para_boss_get_hit                         ; 1D: Falling
+    .word para_boss_do_flying                       ; 1E: Jump to state 1
