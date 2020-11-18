@@ -1,6 +1,4 @@
 
-
-
 para_boss_hover_over_player:
 
 ; Determine if we need to change state
@@ -21,8 +19,8 @@ para_boss_hover_over_player:
     STA objects_animation_frame, x
 
 ; Calculate velocities
-    LDA #$00
-    STA Temp_Var14      ; Slowly go above player and regular vertical speeds
+    LDA objects_v2, x
+    STA Temp_Var14
     JSR para_boss_handle_vertical_velocity
     JSR para_boss_handle_horizontal_velocity
     JMP para_boss_apply_velocity
