@@ -6,8 +6,12 @@ para_hit_interrupt:
 	LDA objects_health, x
 	BEQ para_death_interrupt
 
-	;LDA #$02
-	;STA objects_animation_frame, x
+	LDA #$08
+	STA objects_timer, x
+	STA level_viberate
+
+	LDA #$1C
+	STA para_state, x
 
 	RTS
 
