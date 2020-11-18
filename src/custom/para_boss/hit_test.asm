@@ -52,5 +52,7 @@ para_hit_test:
     LDA #-$30
     STA player_y_vel
 
+    JSR para_hit_interrupt
+
 +
     RTS      ; Return
