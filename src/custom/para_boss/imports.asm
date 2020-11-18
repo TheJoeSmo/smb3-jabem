@@ -25,3 +25,4 @@
 	.include "custom/para_boss/hit_interrupt.asm"
 	.include "custom/para_boss/action_get_hit.asm"
 	.include "custom/para_boss/action_prep_get_hit.asm"
+	.include "custom/para_boss/action_determine_flight.asm"
