@@ -36,6 +36,7 @@ tileset_num					= Level_Tileset
 tileset_alt					= Level_Tileset ; tilesets starting at overworld
 pipes_by_tileset			= Temp_Var16
 is_vertical					= Level_7Vertical
+level_viberate				= Level_Vibration
 
 head_block					= Level_Tile_Head
 left_block					= Level_Tile_GndL
