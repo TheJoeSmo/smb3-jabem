@@ -3,12 +3,20 @@
 para_boss_action_summon_flying_para_goomba:
     LDA #OBJ_PARAGOOMBAWITHMICROS
     STA Temp_Var7
+
+    LDA #SPR_PAL3
+    STA Temp_Var9
+
     BNE para_boss_action_summon_enemy
 
 
 para_boss_action_summon_para_goomba:
     LDA #OBJ_PARAGOOMBA
     STA Temp_Var7
+
+    LDA #SPR_PAL1
+    STA Temp_Var9
+
     BNE para_boss_action_summon_enemy
     
 
@@ -16,6 +24,8 @@ para_boss_action_summon_goomba:
     LDA #OBJ_GOOMBA
     STA Temp_Var7
 
+    LDA #SPR_PAL3
+    STA Temp_Var9
 
 para_boss_action_summon_enemy:
     LDA objects_timer, x
