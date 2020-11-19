@@ -1,4 +1,5 @@
 
+para_boss_normal_fly:
 para_boss_hover_over_player:
 
 ; Determine if we need to change state
