@@ -57,7 +57,3 @@ para_boss_dirty_update:
     .word para_boss_prep_get_hit                    ; 1C: Got hit
     .word para_boss_get_hit                         ; 1D: Falling
     .word para_boss_do_flying
-
-    .word para_boss_action_prep_short_attack        ; 1F: Wait
-    .word para_boss_action_summon_para_goomba       ; 20: Randomly spawn para goomba
-    .word para_boss_do_flying
