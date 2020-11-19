@@ -39,25 +39,25 @@ para_boss_dirty_update:
     .word para_boss_action_prep_short_attack        ; E: Set time until next spawn
     .word para_boss_action_summon_micro_goomba      ; F: Spawn micro goombas
     .word para_boss_action_prep_short_attack        ; 10: Set time until next spawn
-
-    .word para_boss_do_flying                       ; 11: Jump to state 1
+    .word para_boss_do_flying
     .word $0000
 
     .word para_boss_action_prep_short_attack        ; 13: Set the time for the next action
     .word para_boss_action_summon_goomba            ; 14: Spawn a goomba
-
-    .word para_boss_do_flying                       ; 15: Jump to state 1
+    .word para_boss_do_flying
 
     .word para_boss_action_prep_short_attack        ; 16: Set the time for the next action
     .word para_boss_action_summon_para_goomba       ; 17: Spawn a paragoomba
-
     .word para_boss_do_flying                       ; 18: Jump to state 1
 
     .word para_boss_action_prep_short_attack        ; 19: Set the time for the next action
     .word para_boss_action_summon_flying_para_goomba; 1A: Spawn a flying paragoomba
-
     .word para_boss_do_flying                       ; 1B: Jump to state 1
 
     .word para_boss_prep_get_hit                    ; 1C: Got hit
     .word para_boss_get_hit                         ; 1D: Falling
-    .word para_boss_do_flying                       ; 1E: Jump to state 1
+    .word para_boss_do_flying
+
+    .word para_boss_action_prep_short_attack        ; 1F: Wait
+    .word para_boss_action_summon_para_goomba       ; 20: Randomly spawn para goomba
+    .word para_boss_do_flying
