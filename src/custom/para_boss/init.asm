@@ -5,6 +5,10 @@ para_boss_flip:  		.byte SPR_HFLIP, $00
 para_boss_init:
     JSR Level_ObjCalcXDiffs
 
+    LDA #$05
+	STA objects_health, x
+
+
     ; Face Player when appearing
     LDA para_boss_flip, y
     STA objects_attributes, x
