@@ -6,6 +6,11 @@ _objects_sprite_v_visability = Temp_Var5
 para_boss_draw:
     JSR Object_ShakeAndCalcSprite    ; Calculate sprite data
 
+    LDA _object_sprite_y
+    SEC 
+    SBC #5
+    STA _object_sprite_y            ; Lower the sprite by 5 pixels
+
     LDX object_index         ; X = object slot index
 
     LDA objects_animation_frame, x
