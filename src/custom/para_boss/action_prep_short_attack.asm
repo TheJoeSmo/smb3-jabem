@@ -6,8 +6,7 @@ para_boss_action_prep_short_attack_with_sound:
 	STA Sound_QLevel1
 
 para_boss_action_prep_short_attack:
-	LDA cur_random
-	AND #%00001111
+	LDA #$18
 	STA objects_timer, x
 
 	INC para_state, x
