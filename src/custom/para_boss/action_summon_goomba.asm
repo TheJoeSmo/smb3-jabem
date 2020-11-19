@@ -68,6 +68,10 @@ para_boss_action_summon_enemy:
 +
 
     JSR prepare_new_enemy
+
+    LDA #$1C
+    JSR summon_poof
+    
     INC para_state, x
 
 
