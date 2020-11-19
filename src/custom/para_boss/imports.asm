@@ -4,7 +4,6 @@
 	.include "custom/para_boss/update.asm"
 	.include "custom/para_boss/draw.asm"
 	.include "custom/para_boss/action_flutter_down.asm"
-	.include "custom/para_boss/action_fly_above_player.asm"
 	.include "custom/para_boss/action_summon_micro_goomba.asm"
 	.include "custom/para_boss/action_do_nothing.asm"
 	.include "custom/para_boss/action_hover_over_player.asm"
