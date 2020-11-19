@@ -56,4 +56,20 @@ para_boss_dirty_update:
 
     .word para_boss_prep_get_hit                    ; 1C: Got hit
     .word para_boss_get_hit                         ; 1D: Falling
+    .word para_boss_do_flying                       ; 1E
+    .word $0000                                     ; 1F
+    .word $0000                                     ; 20
+    .word $0000                                     ; 21
+
+    .word para_boss_action_prep_short_attack_with_sound     ; 22: Set the time for the next action
+    .word para_boss_action_lob_goomba                       ; 23: Spawn a goomba
     .word para_boss_do_flying
+
+    .word para_boss_action_prep_short_attack_with_sound     ; 25: Set the time for the next action
+    .word para_boss_action_lob_para_goomba                  ; 26: Spawn a paragoomba
+    .word para_boss_do_flying
+
+    .word para_boss_action_prep_short_attack_with_sound     ; 28: Set the time for the next action
+    .word para_boss_action_lob_flying_para_goomba           ; 29: Spawn a flying paragoomba
+    .word para_boss_do_flying
+
