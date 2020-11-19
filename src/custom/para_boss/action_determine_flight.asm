@@ -13,6 +13,9 @@ para_boss_flights_fly_away:
 ; Determines the attack of the boss
 para_boss_select_next_flight_pattern:
 para_boss_action_determine_flight:
+	LDA has_micro_goombas
+	BNE para_boss_action_dive_bomb_player
+
 	JSR find_amount_of_sprites_on_screen
 	CMP #3
 	BPL para_boss_action_fly_away_from_player	
@@ -39,6 +42,12 @@ para_boss_action_determine_flight:
 para_boss_action_fly_away_from_player:
 	LDY objects_health, x
 	LDA para_boss_flights_fly_away-1, y
+	STA objects_v2, x
+	INC para_state, x
+	JMP para_boss_dirty_update		; Do the next state
+
+para_boss_action_dive_bomb_player:
+	LDA #81 						; Go to the bottom of the screen quickly
 	STA objects_v2, x
 	INC para_state, x
 	JMP para_boss_dirty_update		; Do the next state
