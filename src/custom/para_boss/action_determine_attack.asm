@@ -1,19 +1,69 @@
 
 
+; Determine a random attack depending on rng and the health of the boss
 para_boss_action_determine_attack:
+	LDA objects_health, x
+	SEC
+	SBC #$01
+	CLC
+	ASL A
+	ASL A
+	ASL A
+	STA Temp_Var14
 	LDA cur_random+1
 	AND #%00000111
+	CLC
+	ADC Temp_Var14		; A = (health << 3) + 0-7 
 
 	JSR DynJump
+
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_flying
+
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_flying
+
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_flying
+
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_flying
 
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
 	.word para_boss_do_throw_paragoomba_at_player
-	.word para_boss_do_throw_flying_paragoomba_at_player
 	.word para_boss_do_flying
+
+	.byte "Joe Smo"
+
 
 ; Shoot between 1 and 4 micro goombas
 para_boss_do_spawn_micro_goombas:
