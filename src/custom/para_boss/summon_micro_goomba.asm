@@ -1,3 +1,5 @@
+
+
 summon_micro_goomba:
     LDY #$05     ; Searching special object slots 0 - 5
     JSR SpecialObj_FindEmptyAbortY   ; Find an open special object slot or don't come back
