@@ -1,5 +1,6 @@
 
 
+para_boss_wait:
 para_boss_action_prep_attack:
 	LDA #$20
 	STA objects_timer, x
