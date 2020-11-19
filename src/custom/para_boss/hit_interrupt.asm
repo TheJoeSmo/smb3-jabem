@@ -12,6 +12,7 @@ para_hit_interrupt:
 
 	LDA #$1C
 	STA para_state, x
+	STA objects_flashing_counter, x
 
 	RTS
 
