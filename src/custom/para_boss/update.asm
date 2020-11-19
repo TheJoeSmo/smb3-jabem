@@ -27,7 +27,7 @@ para_boss_dirty_update:
     .word para_boss_action_determine_attack         ; 4: Figure out the attack to use
 
     .word para_boss_wait                            ; 5: Set the time for the next action
-    .word para_boss_normal_fly               ; 6: Fly around slowly
+    .word para_boss_normal_fly                      ; 6: Fly around slowly
     .word para_boss_do_flying
 
     .word para_boss_wait                            ; 8: Set time until spawning micro goombas
