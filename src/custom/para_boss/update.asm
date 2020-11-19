@@ -42,15 +42,15 @@ para_boss_dirty_update:
     .word para_boss_do_flying
     .word $0000
 
-    .word para_boss_action_prep_short_attack        ; 13: Set the time for the next action
+    .word para_boss_action_prep_short_attack_with_sound        ; 13: Set the time for the next action
     .word para_boss_action_summon_goomba            ; 14: Spawn a goomba
     .word para_boss_do_flying
 
-    .word para_boss_action_prep_short_attack        ; 16: Set the time for the next action
+    .word para_boss_action_prep_short_attack_with_sound        ; 16: Set the time for the next action
     .word para_boss_action_summon_para_goomba       ; 17: Spawn a paragoomba
     .word para_boss_do_flying                       ; 18: Jump to state 1
 
-    .word para_boss_action_prep_short_attack        ; 19: Set the time for the next action
+    .word para_boss_action_prep_short_attack_with_sound        ; 19: Set the time for the next action
     .word para_boss_action_summon_flying_para_goomba; 1A: Spawn a flying paragoomba
     .word para_boss_do_flying                       ; 1B: Jump to state 1
 
