@@ -2,6 +2,27 @@
 
 ; Determine a random attack depending on rng and the health of the boss
 para_boss_action_determine_attack:
+	JSR find_amount_of_sprites_on_screen
+	CMP #2
+	BMI +
+; There are more than two enemies on screen
+	LDA objects_health, x
+	CMP #$2
+	BMI ++
+; Skip one roll for a microgoomba if more than two enemies
+	LDA cur_random+2
+	AND #%00000011
+	BNE ++
+	JMP para_boss_do_spawn_micro_goombas 	; Spawn some paragoombas
+
+++
+	LDA cur_random+3
+	AND #%00000011
+	BNE +
+	JMP para_boss_do_spawn_micro_goombas 	; Spawn some paragoombas
+
++
+
 	LDA objects_health, x
 	SEC
 	SBC #$01
@@ -19,25 +40,16 @@ para_boss_action_determine_attack:
 
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_lob_paragoomba_at_player
 	.word para_boss_do_throw_paragoomba_at_player
 	.word para_boss_do_lob_flying_paragoomba_at_player
-	.word para_boss_do_throw_flying_paragoomba_at_player
 	.word para_boss_do_throw_flying_paragoomba_at_player
 	.word para_boss_do_flying
 
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_lob_paragoomba_at_player
-	.word para_boss_do_throw_paragoomba_at_player
 	.word para_boss_do_lob_goomba_at_player
-	.word para_boss_do_lob_flying_paragoomba_at_player
-	.word para_boss_do_throw_flying_paragoomba_at_player
-	.word para_boss_do_flying
-
-	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_throw_goomba_at_player
 	.word para_boss_do_lob_paragoomba_at_player
 	.word para_boss_do_throw_paragoomba_at_player
 	.word para_boss_do_lob_flying_paragoomba_at_player
@@ -45,20 +57,29 @@ para_boss_action_determine_attack:
 	.word para_boss_do_flying
 
 	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_lob_paragoomba_at_player
+	.word para_boss_do_lob_paragoomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_lob_flying_paragoomba_at_player
+	.word para_boss_do_throw_flying_paragoomba_at_player
+	.word para_boss_do_flying
+
 	.word para_boss_do_spawn_micro_goombas
 	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_lob_paragoomba_at_player
 	.word para_boss_do_lob_paragoomba_at_player
 	.word para_boss_do_throw_paragoomba_at_player
 	.word para_boss_do_lob_flying_paragoomba_at_player
 	.word para_boss_do_flying
 
 	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_spawn_micro_goombas
-	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_lob_paragoomba_at_player
 	.word para_boss_do_lob_paragoomba_at_player
 	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_lob_goomba_at_player
 	.word para_boss_do_lob_goomba_at_player
 	.word para_boss_do_flying
 
