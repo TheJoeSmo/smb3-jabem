@@ -1,4 +1,8 @@
 
+
+para_flash_durations:
+	.byte 30, 25, 20, 15, 10
+
 ; Boss has been hit
 para_hit_interrupt:
 	DEC objects_health, x
@@ -13,7 +17,9 @@ para_hit_interrupt:
 	LDA #$1C
 	STA para_state, x
 
-	LDA #$20
+	LDA objects_health, x
+	TAY
+	LDA para_flash_durations, y
 	STA objects_flashing_counter, x
 
 	RTS
