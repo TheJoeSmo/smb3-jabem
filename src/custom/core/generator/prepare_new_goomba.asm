@@ -10,6 +10,7 @@ _velocity_x = Temp_Var5
 _velocity_y = Temp_Var6
 _enemy_id = Temp_Var7
 _player_horizontal_difference = Temp_Var8
+_palette = Temp_Var9
 
 goomba_flip_bits:    .byte SPR_HFLIP, $00
 
@@ -35,7 +36,7 @@ prepare_new_enemy:
     LDA _enemy_id
     STA objects_ids, x              ; Treat this as a goomba
 
-    LDA #SPR_PAL3                   ; Use the correct palette
+    LDA _palette                    ; Use the correct palette
     STA objects_sprite_attributes, x
 
     LDA #$40
