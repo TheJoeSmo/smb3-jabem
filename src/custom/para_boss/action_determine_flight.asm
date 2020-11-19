@@ -9,7 +9,7 @@ para_boss_flights:
 
 
 ; Determines the attack of the boss
-para_boss_select_next_attack:
+para_boss_select_next_flight_pattern:
 para_boss_action_determine_flight:
 	LDA objects_health, x
 	CLC

@@ -22,8 +22,8 @@ para_boss_dirty_update:
     .word para_boss_action_do_nothing               ; 0: Debug
 
     .word para_boss_wait_long                       ; 1: Set the time for the next action
-    .word para_boss_select_next_attack              ; 2: Determine the type of fly for the boss
-    .word para_boss_normal_fly               ; 3: Fly around for a while
+    .word para_boss_select_next_flight_pattern      ; 2: Determine the type of fly for the boss
+    .word para_boss_normal_fly                      ; 3: Fly around for a while
     .word para_boss_action_determine_attack         ; 4: Figure out the attack to use
 
     .word para_boss_wait                            ; 5: Set the time for the next action
