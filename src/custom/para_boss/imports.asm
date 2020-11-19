@@ -26,3 +26,4 @@
 	.include "custom/para_boss/action_prep_get_hit.asm"
 	.include "custom/para_boss/action_determine_flight.asm"
 	.include "custom/para_boss/summon_poof.asm"
+	.include "custom/para_boss/action_lob_gomba.asm"
