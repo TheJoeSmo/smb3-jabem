@@ -21,8 +21,8 @@ para_boss_dirty_update:
     ; THESE MUST FOLLOW DynJump FOR THE DYNAMIC JUMP TO WORK!!
     .word para_boss_action_do_nothing               ; 0: Debug
 
-    .word para_boss_wait_long       ; 1: Set the time for the next action
-    .word para_boss_action_determine_flight         ; 2: Determine the type of fly for the boss
+    .word para_boss_wait_long                       ; 1: Set the time for the next action
+    .word para_boss_select_next_attack              ; 2: Determine the type of fly for the boss
     .word para_boss_hover_over_player               ; 3: Fly around for a while
     .word para_boss_action_determine_attack         ; 4: Figure out the attack to use
 
