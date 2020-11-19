@@ -27,6 +27,7 @@ para_boss_action_summon_goomba:
     LDA #SPR_PAL3
     STA Temp_Var9
 
+
 para_boss_action_summon_enemy:
     LDA objects_timer, x
     BNE ++
