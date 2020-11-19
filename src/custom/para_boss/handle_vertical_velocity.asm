@@ -71,6 +71,21 @@ para_boss_rise:
 
 
 para_boss_rise_cap:
+; Add poof upwards
+    LDA objects_y_velocity, x
+    CMP #-15
+    BPL +
+
+    LDA tick_counter
+    AND #%00001111
+    BNE +
+
+    LDA #$10
+    JSR summon_poof_from_object_spot
+
++
+
+; Add cap
     LDA objects_y_velocity, x
     CMP #-40
     BPL +
@@ -101,6 +116,19 @@ para_boss_lower:
     STA objects_y_velocity, x
 
 para_boss_lower_cap:
+    LDA objects_y_velocity, x
+    CMP #30
+    BMI +
+
+    LDA tick_counter
+    AND #%00000001
+    BNE +
+
+    LDA #$10
+    JSR summon_poof_from_object_spot
+
++
+
     LDA objects_y_velocity, x
     CMP #40
     BMI +
