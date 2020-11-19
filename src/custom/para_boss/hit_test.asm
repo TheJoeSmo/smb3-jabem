@@ -11,6 +11,11 @@ para_state_hittable:
     .byte 0, 0, 0, 0
     .byte 1, 1, 0, 0
 
+    .byte 0, 0, 0, 0
+    .byte 0, 0, 0, 0
+    .byte 0, 0, 0, 0
+    .byte 0, 0, 0, 0
+
 para_hit_test:
     JSR Object_HandleBumpUnderneath  	; Handle getting bumped
 
