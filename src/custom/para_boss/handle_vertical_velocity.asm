@@ -23,6 +23,9 @@ para_boss_vertical_distance_ranges:
     .byte 0, 4, 6, 8        ; 2.5 blocks above player           ; 76
     .byte 60                ; Max value to stop overflow
 
+    .byte -2, 0, 2, 4       ; Dive bomb the player              : 81
+    .byte 60
+
 ; do_nothing 0 | rise_quickest 1 | rise_quicker 2 | rise 3 | do_nothing 4 | lower 5 | lower_quicker 6 | lower_quickest 7
 para_boss_vertical_distance_speeds:
 ; Bands
@@ -48,6 +51,8 @@ para_boss_vertical_distance_speeds:
     .byte 2, 3, 5, 6        ; 2.5 blocks above player
     .byte 7                 ; Go down and go down fast
 
+    .byte 1, 2, 7, 7        ; Dive bomb player
+    .byte 7                 ; Go down and go down fast
 
 para_boss_rise_quickest:
     LDA objects_y_velocity, x
