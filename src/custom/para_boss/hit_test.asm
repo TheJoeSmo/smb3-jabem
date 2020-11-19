@@ -16,6 +16,9 @@ para_state_hittable:
     .byte 0, 0, 0, 0
     .byte 0, 0, 0, 0
 
+para_horz_bounce:
+    .byte 30, -30
+
 para_hit_test:
     JSR Object_HandleBumpUnderneath  	; Handle getting bumped
 
@@ -53,8 +56,11 @@ para_hit_test:
     LDA #$09
     JSR Score_PopUp
 
-; Player Y Vel = -$30 (bounce off)
-    LDA #-$30
+    JSR Level_ObjCalcXDiffs
+    LDA para_horz_bounce, y
+    STA player_x_vel
+
+    LDA #-60
     STA player_y_vel
 
     JSR para_hit_interrupt
