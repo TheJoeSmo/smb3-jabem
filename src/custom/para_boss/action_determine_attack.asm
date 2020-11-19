@@ -62,9 +62,6 @@ para_boss_action_determine_attack:
 	.word para_boss_do_throw_paragoomba_at_player
 	.word para_boss_do_flying
 
-	.byte "Joe Smo"
-
-
 ; Shoot between 1 and 4 micro goombas
 para_boss_do_spawn_micro_goombas:
 	LDA cur_random+2
