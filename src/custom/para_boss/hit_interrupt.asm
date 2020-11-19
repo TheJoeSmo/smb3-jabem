@@ -12,10 +12,14 @@ para_hit_interrupt:
 
 	LDA #$1C
 	STA para_state, x
+
+	LDA #$20
 	STA objects_flashing_counter, x
 
 	RTS
 
 ; Boss has died
 para_death_interrupt:
+	LDA #$00
+	STA para_state, x
 	RTS
