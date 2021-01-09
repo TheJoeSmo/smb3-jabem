@@ -28,3 +28,7 @@
 	.include "custom/para_boss/summon_poof.asm"
 	.include "custom/para_boss/action_lob_gomba.asm"
 	.include "custom/para_boss/find_amount_of_sprites_on_screen.asm"
+	.include "custom/para_boss/action_die_in_poof.asm"
+	.include "custom/para_boss/action_do_time_bonus.asm"
+	.include "custom/para_boss/action_flicker_away.asm"
+	.include "custom/para_boss/action_fall_to_kings_room.asm"
