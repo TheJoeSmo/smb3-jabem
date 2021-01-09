@@ -8,6 +8,9 @@ para_boss_init:
     LDA #$05
 	STA objects_health, x
 
+	LDA #$00
+	STA objects_v6, x 		; Draw the boss
+	STA Level_GetWandState 	; Reset wand state
 
     ; Face Player when appearing
     LDA para_boss_flip, y
