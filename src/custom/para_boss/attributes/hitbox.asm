@@ -1,2 +1,2 @@
 
-.byte OAT_BOUNDBOX02
+.byte OAT_BOUNDBOX01
