@@ -4,6 +4,9 @@ para_boss_mask:
     .byte $04, $08, $08, $08, $10
 
 para_boss_update:
+    LDA #$80
+    STA PatTable_BankSel+4
+
     LDA objects_v6, x   ; If set don't draw
     BNE +
     JSR para_boss_draw
