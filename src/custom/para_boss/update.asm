@@ -4,14 +4,20 @@ para_boss_mask:
     .byte $04, $08, $08, $08, $10
 
 para_boss_update:
+    LDA objects_v6, x   ; If set don't draw
+    BNE +
     JSR para_boss_draw
++
 
     LDA Player_HaltGame
     BEQ +
     RTS             ; Do no logic if paused
 +
 
+    LDA objects_health, x   ; No collision after death
+    BEQ +
     JSR para_hit_test
++
 
 para_boss_dirty_update:
     LDA para_state, x
@@ -73,3 +79,9 @@ para_boss_dirty_update:
     .word para_boss_action_lob_flying_para_goomba           ; 29: Spawn a flying paragoomba
     .word para_boss_do_flying
 
+    .word para_boss_die_in_poof                     ; 2B: Make a poof
+    .word para_boss_wait_for_wand_grab              ; 2C: Wait for the player to get the wand
+    .word para_boss_do_time_bonus                   ; 2D: Do the time bonus
+    .word para_boss_action_flicker_away             ; 2E: Do the flicker effect
+    .word para_boss_action_fall_to_kings_room       ; 2F: Fall to the king's room
+    .word para_boss_action_do_nothing               ; 0: Debug
