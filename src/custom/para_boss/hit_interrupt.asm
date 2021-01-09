@@ -26,6 +26,6 @@ para_hit_interrupt:
 
 ; Boss has died
 para_death_interrupt:
-	LDA #$00
+	LDA #$2B
 	STA para_state, x
 	RTS
