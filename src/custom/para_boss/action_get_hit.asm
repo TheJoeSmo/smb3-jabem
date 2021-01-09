@@ -1,7 +1,9 @@
 
 
-para_horz_hit:
-    .byte -30, 30
+para_horz_hit_left:
+    .byte -50, -45, -40, -35, -30
+para_horz_hit_right:
+    .byte 50, 45, 40, 35, 30
 para_horz_boom_vel:
 	.byte -20, 20
 
@@ -29,7 +31,18 @@ para_boss_get_hit:
 	STA SpecialObj_XVel, y
 
 	JSR Level_ObjCalcXDiffs
-    LDA para_horz_hit, y
+	TYA
+	BEQ +
+
+	LDY objects_health, x
+	LDA para_horz_hit_right, y
+
+-
     STA objects_x_velocity, x
 
 	JMP para_boss_apply_velocity
+
++
+	LDY objects_health, x
+	LDA para_horz_hit_left, y
+	JMP -
