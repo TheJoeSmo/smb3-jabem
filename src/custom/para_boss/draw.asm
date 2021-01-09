@@ -1,6 +1,7 @@
 frame_count_helper: .byte 0, 6, 12, 18, 24, 30, 36 
 
 _object_sprite_y = Temp_Var1
+_object_sprite_x = Temp_Var2
 _objects_sprite_v_visability = Temp_Var5
 
 para_boss_draw:
@@ -10,6 +11,11 @@ para_boss_draw:
     SEC 
     SBC #5
     STA _object_sprite_y            ; Lower the sprite by 5 pixels
+
+    LDA _object_sprite_x
+    CLC
+    SBC #2
+    STA _object_sprite_x            ; Center hitbox
 
     LDX object_index         ; X = object slot index
 
