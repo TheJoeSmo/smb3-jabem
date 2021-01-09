@@ -3725,6 +3725,17 @@ SObj_Wand:
 
     DEC SpecialObj_YVel,X
 
+    ; Joe Smo ; Custom wand horizontal velocity code
+    LDA SpecialObj_XVel,X
+    BEQ +
+    BPL ++
+    INC SpecialObj_XVel,X
+    JMP +
+++
+    DEC SpecialObj_XVel,X
+
++
+
     ; Wand_FrameCnt += Var1 (spin rate)
     LDA Wand_FrameCnt
     CLC
