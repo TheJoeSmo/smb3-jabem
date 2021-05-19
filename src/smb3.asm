@@ -5014,8 +5014,26 @@ TILE18_BOUNCEDBLOCK = $C2   ; Temporary tile for when block has been bounced
     .incbin "CHR/chr127.chr"
     .incbin "CHR/chr128.chr"
 
-    REPT 127
-    .incbin "CHR/chr126.chr"
+    REPT 9
+    dsb 1024
+    ENDR
+
+    ; ORANGE - 138-149 used for on/off
+    .incbin "CHR/chr138.chr"
+    .incbin "CHR/chr139.chr"
+    .incbin "CHR/chr140.chr"
+    .incbin "CHR/chr141.chr"
+    .incbin "CHR/chr142.chr"
+    .incbin "CHR/chr143.chr"
+    .incbin "CHR/chr144.chr"
+    .incbin "CHR/chr145.chr"
+    .incbin "CHR/chr146.chr"
+    .incbin "CHR/chr147.chr"
+    .incbin "CHR/chr148.chr"
+    .incbin "CHR/chr149.chr"
+
+    REPT 106
+    dsb 1024
     ENDR
 
 
