@@ -40,6 +40,20 @@ __PRG014_DFCC:
     RTS		 ; Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+LoadLevel15_Generic_40:
+    ;;; [ORANGE] This function handles loading the following custom
+    ;;; tiles in TileSet 1 based on the value in PageCallVars:
+    ;;; 0 = On block
+    ;;; 1 = Off block
+    LDA PageCallVars
+    JSR DynJump
+    .word LoadLevel_OnOffs_TS1
+    .word LoadLevel_OnOffs_TS1
+
+LoadLevel_OnOffs_TS1:
+    ; Fall into LoadLevel_OnOffs_40
+
 LoadLevel_OnOffs_40:
     ; PageCallVars contains our On/Off ID (0 or 1)
     LDA LL_ShapeDef
