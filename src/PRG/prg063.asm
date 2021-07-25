@@ -127,7 +127,8 @@ _subst_check_water:
     RTS                            ; If it's not a water on/off tile, just return with Y as-is
 _subst_is_water:
     TYA
-    SUB #4                        ; If it is a water on/off tile, return with Y decremented 4
+    SEC
+    SBC #4                        ; If it is a water on/off tile, return with Y decremented 4
     TAY
 _subst_rts:
     RTS
@@ -136,26 +137,7 @@ _no_subst:
     PLA                            ; Remove our caller ret addr
     CLC                            ; Clear the carry to signal we didn't replace
     RTS
-
-OnOffTileByTS:
-    ; Index by Level_TilesetIdx << 2
-    ; Lowest 2 bits:
-    ;        b00           b01                 b10            b11
-    .byte TILE1_ON, TILE1_OFF_INACTIVE, TILE1_ON_INACTIVE, TILE1_OFF    ; 1 - Plains [15]
-    .byte TILE2_ON, TILE2_OFF_INACTIVE, TILE2_ON_INACTIVE, TILE2_OFF    ; 2 - Fortress [21]
-    .byte TILE3_ON, TILE3_OFF_INACTIVE, TILE3_ON_INACTIVE, TILE3_OFF    ; 3 - Hills [16]
-    .byte TILE4_ON, TILE4_OFF_INACTIVE, TILE4_ON_INACTIVE, TILE4_OFF    ; 4 - High Up [17]
-    .byte TILE6_ON_WATER, TILE6_OFF_W_INACTIVE, TILE6_ON_W_INACTIVE, TILE6_OFF_WATER    ; 5 - Plant infestation (unsupported - special code
-                                ;     uses this location for water tiles)
-    .byte TILE6_ON, TILE6_OFF_INACTIVE, TILE6_ON_INACTIVE, TILE6_OFF    ; 6 - Water [18]
-    .byte $00, $00, $00, $00    ; 7 - Toad house (unsupported)
-    .byte TILE6_ON, TILE6_OFF_INACTIVE, TILE6_ON_INACTIVE, TILE6_OFF    ; 8 - Pipe maze [18]
-    .byte TILE9_ON, TILE9_OFF_INACTIVE, TILE9_ON_INACTIVE, TILE9_OFF    ; 9 - Desert [20]
-    .byte $00, $00, $00, $00    ; 10 - Airship (unsupported)
-    .byte TILE11_ON, TILE11_OFF_INACTIVE, TILE11_ON_INACTIVE, TILE11_OFF    ; 11 - Giant [19]
-    .byte TILE4_ON, TILE4_OFF_INACTIVE, TILE4_ON_INACTIVE, TILE4_OFF    ; 12 - Ice [17]
-    .byte TILE11_ON, TILE11_OFF_INACTIVE, TILE11_ON_INACTIVE, TILE11_OFF    ; 13 - Coin heaven/sky [19]
-    .byte TILE14_ON, TILE14_OFF_INACTIVE, TILE14_ON_INACTIVE, TILE14_OFF    ; 14 - Underground [13]
+    .dsb 27
 
 Music_PlayDMC:
     LDA DMC_Queue    ; Get value queued for DMC
@@ -202,7 +184,15 @@ PRG031_E2E1:
     STA PAPU_EN  ; Enable DMC
     RTS      ; Return
 
+	; The address are $C000 | (value << 6)
+.macro MADR _1
+    .byte ((_1 & $3FFF) >> 6)
+    .endm
 
+	; The length is (value << 4) + 1 (minimum 1 byte long to $FF1 bytes long)
+.macro MLEN _1, _2
+    .byte ((_2 - _1) >> 4)
+    .endm
 
     ; Sample 3: "BAD SAMPLE LENGTH"
     ; Seems there is an errorenous, very long/very wrong sample length on
@@ -211,41 +201,41 @@ PRG031_E2E1:
     ; play DMC02 and just continue on through code, which would be noisy.
 
 DMC_MODADDR_LUT:
-    .byte (DMC01 & $3FFF) >> 6   ; Sample  0 (DMC01)
-    .byte (DMC02 & $3FFF) >> 6   ; Sample  1 (DMC02)
-    .byte (DMC03 & $3FFF) >> 6   ; Sample  2 (DMC03)
-    .byte (DMC02 & $3FFF) >> 6   ; Sample  3 (DMC02 BAD SAMPLE LENGTH)
-    .byte (DMC04 & $3FFF) >> 6   ; Sample  4 (DMC04)
-    .byte (DMC05 & $3FFF) >> 6   ; Sample  5 (DMC05)
-    .byte (DMC05 & $3FFF) >> 6   ; Sample  6 (DMC05 3/4 length)
-    .byte (DMC06 & $3FFF) >> 6   ; Sample  7 (DMC06)
-    .byte (DMC06 & $3FFF) >> 6   ; Sample  8 (DMC06 slower)
-    .byte (DMC07 & $3FFF) >> 6   ; Sample  9 (DMC07)
-    .byte (DMC07 & $3FFF) >> 6   ; Sample 10 (DMC07 slower)
-    .byte (DMC05 & $3FFF) >> 6   ; Sample 11 (DMC05 1/2 length)
-    .byte (DMC08 & $3FFF) >> 6   ; Sample 12 (DMC08)
-    .byte (DMC09 & $3FFF) >> 6   ; Sample 13 (DMC09)
-    .byte (DMC09 & $3FFF) >> 6   ; Sample 14 (DMC09 slower)
-    .byte (DMC09 & $3FFF) >> 6   ; Sample 15 (DMC09 even slower)
+    MADR(DMC01)   ; Sample  0 (DMC01)
+    MADR(DMC02)   ; Sample  1 (DMC02)
+    MADR(DMC03)   ; Sample  2 (DMC03)
+    MADR(DMC02)   ; Sample  3 (DMC02 BAD SAMPLE LENGTH)
+    MADR(DMC04)   ; Sample  4 (DMC04)
+    MADR(DMC05)   ; Sample  5 (DMC05)
+    MADR(DMC05)   ; Sample  6 (DMC05 3/4 length)
+    MADR(DMC06)   ; Sample  7 (DMC06)
+    MADR(DMC06)   ; Sample  8 (DMC06 slower)
+    MADR(DMC07)   ; Sample  9 (DMC07)
+    MADR(DMC07)   ; Sample 10 (DMC07 slower)
+    MADR(DMC05)   ; Sample 11 (DMC05 1/2 length)
+    MADR(DMC08)   ; Sample 12 (DMC08)
+    MADR(DMC09)   ; Sample 13 (DMC09)
+    MADR(DMC09)   ; Sample 14 (DMC09 slower)
+    MADR(DMC09)   ; Sample 15 (DMC09 even slower)
 
 DMC_MODLEN_LUT:
     ; these are (value << 4) + 1, that is minimum 1 byte long to FF1 bytes
-    .byte (DMC01_End - DMC01) >> 4    ; Sample  0 (DMC01)
-    .byte (DMC02_End - DMC02) >> 4    ; Sample  1 (DMC02)
-    .byte (DMC03_End - DMC03) >> 4    ; Sample  2 (DMC03)
-    .byte (DMC02_Bad - DMC02) >> 4    ; Sample  3 (DMC02 BAD SAMPLE LENGTH)
-    .byte (DMC04_End - DMC04) >> 4    ; Sample  4 (DMC04)
-    .byte (DMC05_End - DMC05) >> 4    ; Sample  5 (DMC05)
-    .byte (DMC05_C - DMC05) >> 4  ; Sample  6 (DMC05 3/4 length)
-    .byte (DMC06_End - DMC06) >> 4    ; Sample  7 (DMC06)
-    .byte (DMC06_End - DMC06) >> 4    ; Sample  8 (DMC06 slower)
-    .byte (DMC07_End - DMC07) >> 4    ; Sample  9 (DMC07)
-    .byte (DMC07_End - DMC07) >> 4    ; Sample 10 (DMC07 slower)
-    .byte (DMC05_B - DMC05) >> 4  ; Sample 11 (DMC05 1/2 length)
-    .byte (DMC08_End - DMC08) >> 4    ; Sample 12 (DMC08)
-    .byte (DMC09_End - DMC09) >> 4    ; Sample 13 (DMC09)
-    .byte (DMC09_End - DMC09) >> 4    ; Sample 14 (DMC09 slower)
-    .byte (DMC09_End - DMC09) >> 4    ; Sample 15 (DMC09 even slower)
+    MLEN(DMC01, DMC01_End)    ; Sample  0 (DMC01)
+    MLEN(DMC02, DMC02_End)    ; Sample  1 (DMC02)
+    MLEN(DMC03, DMC03_End)    ; Sample  2 (DMC03)
+    MLEN(DMC02, DMC02_Bad)    ; Sample  3 (DMC02 BAD SAMPLE LENGTH)
+    MLEN(DMC04, DMC04_End)    ; Sample  4 (DMC04)
+    MLEN(DMC05, DMC05_End)    ; Sample  5 (DMC05)
+    MLEN(DMC05, DMC05_C)      ; Sample  6 (DMC05 3/4 length)
+    MLEN(DMC06, DMC06_End)    ; Sample  7 (DMC06)
+    MLEN(DMC06, DMC06_End)    ; Sample  8 (DMC06 slower)
+    MLEN(DMC07, DMC07_End)    ; Sample  9 (DMC07)
+    MLEN(DMC07, DMC07_End)    ; Sample 10 (DMC07 slower)
+    MLEN(DMC05, DMC05_B)      ; Sample 11 (DMC05 1/2 length)
+    MLEN(DMC08, DMC08_End)    ; Sample 12 (DMC08)
+    MLEN(DMC09, DMC09_End)    ; Sample 13 (DMC09)
+    MLEN(DMC09, DMC09_End)    ; Sample 14 (DMC09 slower)
+    MLEN(DMC09, DMC09_End)    ; Sample 15 (DMC09 even slower)
 
 DMC_MODCTL_LUT:
     .byte $0F   ; Sample  0 (DMC01)
@@ -277,14 +267,22 @@ Music_GetRestTicks:
     ; Note that Music_RestH_Base is always divisible by $10 and
     ; Music_RestH_Off is always $00 or $10 (low time warning)
 
-    AND #$0f        ; Get lower 4 bits
-    CLC
-    ADC Music_RestH_Base    ; Add this to Music_RestH_Base
-    ADC Music_RestH_Off ; Add this to Music_RestH_Off
+    ;;AND #$0f	 	; Get lower 4 bits
+    ;;;;ADD Music_RestH_Base	; Add this to Music_RestH_Base
+    ;;;ADC Music_RestH_Off	; Add this to Music_RestH_Off
 
-    TAY         ; Y = A
-    LDA Music_RestH_LUT,Y   ; Get value from Music_RestH_LUT
-    RTS         ; Return
+    ;TAY			; Y = A
+    ;;;LDA Music_RestH_LUT,Y 	; Get value from Music_RestH_LUT
+    ;RTS		 	; Return
+    AND #$0f	 	; Get lower 4 bits
+    CLC
+    ADC Music_RestH_Base	; Add this to Music_RestH_Base
+    ADC Music_RestH_Off	; Add this to Music_RestH_Off
+    TAY			; Y = A
+    LDA (Music_Rest_PtrL),Y
+    RTS		 	; Return
+    .dsb 1
+
 
 SndMus_QueueCommonJ:
     JMP SndMus_QueueCommon
@@ -386,40 +384,68 @@ SndMus2B_Next:
     JMP Music_StopAll
 
 SndMus2B_LoadNext:
-    ; Load next "index" (Y) of Music Set 2 song...
+    ;;; [ORANGE] Most of this function moved to prg038.asm in SndMusAll_LoadHedr
 
-    LDA Music_Set2B_IndexOffs-1,Y   ; Get offset for the current index; it is always one ahead, so -1 from the LUT
-    TAY      ; Use this offset value in Y
+    ; Load next "index" (Y) of Music Set 2 song...
+    TYA
+    ASL A	; double it to index our 2B header pointer list
+    TAY
+    ; Load the pointer to our header into [Temp_Var1,2]
+    LDA Music_Set2B_HedrPtrs-2,Y
+    STA <Temp_Var1
+    LDA Music_Set2B_HedrPtrs-1,Y
+    STA <Temp_Var2
+
+    JMP SndMusAll_LoadHedr_38
+
+    ;;; [ORANGE] The rest of this function now used for other Music engine things
+    ResetNoiseTrack:
+    LDA Music_NseStartLo
+    STA Music_NseTrkLo
+    LDA Music_NseStartHi
+    STA Music_NseTrkHi
+    RTS
+    ResetDMCTrack:
+    LDA Music_PCMStartLo
+    STA Music_PCMTrkLo
+    LDA Music_PCMStartHi
+    STA Music_PCMTrkHi
+    RTS
+
+    .dsb 11
+
+    ;;;LDA Music_Set2B_IndexOffs-1,Y	; Get offset for the current index; it is always one ahead, so -1 from the LUT
+    ;TAY		 ; Use this offset value in Y
 
     ; Get and store rest lookup base index for this segment in Music_RestH_Base
-    LDA Music_Set2B_Headers,Y
-    STA Music_RestH_Base
+    ;;;LDA Music_Set2B_Headers,Y
+    ;;;STA Music_RestH_Base
 
     ; Get and store the base address into [Music_Base_H][Music_Base_L]
-    LDA Music_Set2B_Headers+1,Y
-    STA Music_Base_L
-    LDA Music_Set2B_Headers+2,Y
-    STA Music_Base_H
+    ;;;LDA Music_Set2B_Headers+1,Y
+    ;;STA <Music_Base_L
+    ;;;LDA Music_Set2B_Headers+2,Y
+    ;;STA <Music_Base_H
 
     ; Get and store triangle track offset
-    LDA Music_Set2B_Headers+3,Y
-    STA Music_TriTrkPos
+    ;;;LDA Music_Set2B_Headers+3,Y
+    ;;;STA Music_TriTrkPos
 
     ; Get and store square 1 track offset
-    LDA Music_Set2B_Headers+4,Y
-    STA Music_Sq1TrkOff
+    ;;;LDA Music_Set2B_Headers+4,Y
+    ;;;STA Music_Sq1TrkOff
 
     ; Set and store noise track offset
-    LDA Music_Set2B_Headers+5,Y
-    STA Music_NseTrkPos
-    STA Music_NseStart  ; Retain starting position for possible restoration later
+    ;;;LDA Music_Set2B_Headers+5,Y
+    ;;;STA Music_NseTrkPos
+    ;;;STA Music_NseStart	; Retain starting position for possible restoration later
 
     ; Set and store DMC track offset
-    LDA Music_Set2B_Headers+6,Y
-    STA Music_PCMTrkPos
-    STA Music_PCMStart  ; Retain starting position for possible restoration later
+    ;;;LDA Music_Set2B_Headers+6,Y
+    ;;;STA Music_PCMTrkPos
+    ;;;STA Music_PCMStart	; Retain starting position for possible restoration later
 
-    JMP PRG031_E48C
+    ;;;JMP PRG031_E48C
 
 PRG031_E3EB:
     JMP Music_Sq2Track
@@ -507,46 +533,61 @@ PRG028_E456:
     BCC PRG028_E456  ; If we haven't hit a bit, go around again...
 
 SndMus2A_LoadNext:
+    ;;; [ORANGE] Most of this function moved to prg038.asm in SndMusAll_LoadHedr_38
+    ; 'Y' is the next 1/2A index we're going to play
+    TYA
+    ASL A	; double it to index our 2A header pointer list
+    TAY
+    ; Load the pointer to our header into [Temp_Var1,2]
+    LDA Music_Set1_Set2A_Ptrs-2,Y
+    STA <Temp_Var1
+    LDA Music_Set1_Set2A_Ptrs-1,Y
+    STA <Temp_Var2
+
+    JMP SndMusAll_LoadHedr_38
+
+    ;;; [ORANGE] The rest of this function now free space
+    .dsb 34
+
     ; Both Set 1 and 2A enter here...
     ; The only difference is that Set 1 enters directly with an index in mind
     ; Set 2A enters using the index counting system like 2B.  So it works since
     ; 2B's lowest index is 08!
 
     ; 'Y' is the next 1/2A index we're going to play
-    LDA Music_Set1_Set2A_IndexOffs-1,Y   ; This selects the offset to the track offset headers for this song; we subtract 1 since 'Y' starts at 1
-    TAY
+    ;;;LDA Music_Set1_Set2A_IndexOffs-1,Y	 ; This selects the offset to the track offset headers for this song; we subtract 1 since 'Y' starts at 1
+    ;TAY
 
     ; Set rest lookup base index
-    LDA Music_Set1_Set2A_Headers,Y
-    STA Music_RestH_Base
+    ;;;LDA Music_Set1_Set2A_Headers,Y
+    ;;;STA Music_RestH_Base
 
     ; Set music base address
-    LDA Music_Set1_Set2A_Headers+1,Y
-    STA Music_Base_L
-    LDA Music_Set1_Set2A_Headers+2,Y
-    STA Music_Base_H
+    ;;;LDA Music_Set1_Set2A_Headers+1,Y
+    ;;STA <Music_Base_L
+    ;;;LDA Music_Set1_Set2A_Headers+2,Y
+    ;;STA <Music_Base_H
 
     ; Set triangle track position
-    LDA Music_Set1_Set2A_Headers+3,Y
-    STA Music_TriTrkPos
+    ;;;LDA Music_Set1_Set2A_Headers+3,Y
+    ;;;STA Music_TriTrkPos
 
     ; Set square 1 track position
-    LDA Music_Set1_Set2A_Headers+4,Y
-    STA Music_Sq1TrkOff
+    ;;;LDA Music_Set1_Set2A_Headers+4,Y
+    ;;;STA Music_Sq1TrkOff
 
     ; Set noise track position
-    LDA Music_Set1_Set2A_Headers+5,Y
-    STA Music_NseTrkPos
+    ;;;LDA Music_Set1_Set2A_Headers+5,Y
+    ;;;STA Music_NseTrkPos
 
 DMC02_Bad:  ; Sample 3 in the DMC table suggests a sample ending here; likely a mistake or lost DMC sound?
 
-    STA Music_NseStart
+	;;;STA Music_NseStart
 
-    ; Set PCM track position
-    LDA Music_Set1_Set2A_Headers+6,Y
-    STA Music_PCMTrkPos
-    STA Music_PCMStart
-
+	; Set PCM track position
+	;;;LDA Music_Set1_Set2A_Headers+6,Y
+	;;;STA Music_PCMTrkPos
+	;;;STA Music_PCMStart
 
 PRG031_E48C:
     ; New index has been loaded
@@ -890,17 +931,17 @@ PRG031_E660:
 ; Triangle's music track code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Music_TriTrack:
-    LDA Music_TriTrkPos ; Get triangle track's position
-    BEQ Music_NseTrack  ; If Music_TriTrkPos = 0 (Disabled!), jump to Music_NseTrack
+    LDA Music_TriTrkHi	; Get triangle track pointer's high byte
+    BEQ Music_NseTrack	; If Music_TriTrkHi = 0 (Disabled!), jump to Music_NseTrack
 
     DEC Music_TriRest   ; Music_TriRest--
     BNE Music_NseTrack  ; If not done resting, jump to the noise track
 
-    LDY Music_TriTrkPos ; Y = Music_TriTrkPos
-    INC Music_TriTrkPos ; Music_TriTrkPos++
-    LDA (Music_Base_L),Y    ; Get next byte from triangle track
-
-    BPL Music_TriNoteOn ; Byte $00 - $7f, jump to Music_TriNoteOn
+    NOP
+    LDX #TRACK_TRI		; Get the note at the triangle track pointer (X = 0)
+    JSR Music_GetPtrNote_38
+    CMP #$00			; Compare the note byte we read to $00
+    BPL Music_TriNoteOn	; Byte $00 - $7f, jump to Music_TriNoteOn
 
     ; Byte $80 - $ff... goes directly to the rest value routine
     ; No "patches" available on the triangle track
@@ -910,10 +951,11 @@ Music_TriTrack:
     LDA #$1f
     STA PAPU_TCR1    ; $1f written to PAPU_TCR1
 
-    LDY Music_TriTrkPos ; Y = Music_TriTrkPos
-    INC Music_TriTrkPos ; Music_TriTrkPos++
-    LDA (Music_Base_L),Y    ; Get next byte from music segment
-    BEQ PRG031_E6B4     ; If $00 came up, jump to PRG031_E6B4
+    NOP
+    LDX #TRACK_TRI		; Get the note at the triangle track pointer (X = 0)
+    JSR Music_GetPtrNote_38
+    CMP #$00
+    BEQ PRG031_E6B4	 	; If $00 came up, jump to PRG031_E6B4
 
 Music_TriNoteOn:
     ; Triangle track, value $00 - $7f
@@ -957,29 +999,29 @@ PRG031_E6B4:
 ; Noise's music track code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Music_NseTrack:
-    LDA Music_NseTrkPos ; Music_NseTrack
-    BEQ Music_PCMTrack  ; If Music_NseTrack = 0 (disabled), jump to Music_PCMTrack
+    LDA Music_NseTrkHi	; Music_NseTrack
+    BEQ Music_PCMTrack	; If Music_NseTrackHi = 0 (disabled), jump to Music_PCMTrack
 
-    DEC Music_NoiseRest ; Music_NoiseRest--
-    BNE Music_PCMTrack  ; If track is not done resting, just jump to Music_PCMTrack
-
+    DEC Music_NoiseRest	; Music_NoiseRest--
+    BNE Music_PCMTrack	; If track is not done resting, just jump to Music_PCMTrack
 PRG031_E6C7:
-    LDY Music_NseTrkPos ; Y = Music_NseTrkPos
-    INC Music_NseTrkPos ; Music_NseTrkPos++
-    LDA (Music_Base_L),Y    ; Get next byte from music segment track
-
-    BEQ PRG031_E700     ; If next byte is $00, jump to PRG031_E700
-    BPL Music_NseNoteOn     ; $01 - $7f is note on, jump to Music_NseNoteOn
+    NOP
+    LDX #TRACK_NSE		; Get the note at the noise track pointer (X = 2)
+    JSR Music_GetPtrNote_38
+    CMP #$00
+    BEQ PRG031_E700	 	; If next byte is $00, jump to PRG031_E700
+    BPL Music_NseNoteOn    ; $01 - $7f is note on, jump to Music_NseNoteOn
 
     ; Byte $80 - $ff... goes directly to the rest value routine
     ; No "patches" available on the noise track
     JSR Music_GetRestTicks
     STA Music_NseRestH   ; Update rest hold
 
-    LDY Music_NseTrkPos ; Y = Music_NseTrkPos
-    INC Music_NseTrkPos ; Music_NseTrkPos++
-    LDA (Music_Base_L),Y    ; Get next byte in music segment track
-    BEQ PRG031_E700     ; If byte $00 comes up, jump to PRG031_E700
+    NOP
+    LDX #TRACK_NSE			; Get the note at the noise track pointer (X = 2)
+    JSR Music_GetPtrNote_38
+    CMP #$00
+    BEQ PRG031_E700	 	; If byte $00 comes up, jump to PRG031_E700
 
 Music_NseNoteOn:
     ; Noise isn't really a "note" event, but it has a LUT for a "note" value...
@@ -1009,21 +1051,24 @@ Music_PCMTrack:
 
 PRG031_E700:
     ; When byte $00 read, Reset noise track to start
-    LDA Music_NseStart
-    STA Music_NseTrkPos
-    JMP PRG031_E6C7  ; Back into the fray...
+    JSR ResetNoiseTrack
+    NOP
+    NOP
+    NOP
+    JMP PRG031_E6C7	 ; Back into the fray...
 
 PRG031_E709:
-    LDA Music_PCMTrkPos
-    BEQ PRG031_E738     ; If Music_PCMTrkPos = 0 (disabled), jump to PRG031_E738
+    LDA Music_PCMTrkHi
+    BEQ PRG031_E738	 	; If Music_PCMTrkHi = 0 (disabled), jump to PRG031_E738
 
     DEC Music_DMCRest   ; Music_DMCRest--
     BNE PRG031_E738     ; If not done resting, jump to PRG031_E738
 
 PRG031_E713:
-    LDY Music_PCMTrkPos ; Y = Music_PCMTrkPos
-    INC Music_PCMTrkPos ; Music_PCMTrkPos++
-    LDA (Music_Base_L),Y    ; Get next byte in music segment track
+    NOP
+    LDX #TRACK_PCM		; Get the note at the PCM track pointer (X = 4)
+    JSR Music_GetPtrNote_38
+    CMP #$00
 
     BEQ PRG031_E741     ; If next byte is $00, jump to PRG031_E741
     BPL PRG031_E72F     ; If byte is $01 - $7f, jump to PRG031_E72F
@@ -1031,10 +1076,11 @@ PRG031_E713:
     JSR Music_GetRestTicks
     STA Music_DMCRestH  ; Update rest hold value
 
-    LDY Music_PCMTrkPos ; Y = Music_PCMTrkPos
-    INC Music_PCMTrkPos ; Music_PCMTrkPos++
-    LDA (Music_Base_L),Y    ; Get next byte in music segment track
-    BEQ PRG031_E741     ; If next byte is $00, jump to PRG031_E741
+    NOP
+    LDX #TRACK_PCM		; Get the note at the PCM track pointer (X = 4)
+    JSR Music_GetPtrNote_38
+    CMP #$00
+    BEQ PRG031_E741	 	; If next byte is $00, jump to PRG031_E741
 
 PRG031_E72F:
     STA DMC_Queue       ; Store note into DMC queue
@@ -1050,9 +1096,11 @@ PRG031_E738:
 
 PRG031_E741:
     ; When byte $00 read, reset DMC track to start
-    LDA Music_PCMStart
-    STA Music_PCMTrkPos
-    JMP PRG031_E713     ; Back into the fray...
+    JSR ResetDMCTrack
+    NOP
+    NOP
+    NOP
+    JMP PRG031_E713	 	; Back into the fray...
 
 
     ; Noise track values per "note"; the note is shifted down by 1,
@@ -1314,16 +1362,26 @@ PRG031_E870:
     ; * Obviously that means a song is "optimized" by selecting the best set, and
     ;   must have a correct row +$10 if it plans on being "low time warning compatible"
 Music_RestH_LUT:
+Music_RestH_LUT00:
     .byte $08, $08, $0B, $0A, $10, $18, $15, $16, $20, $30, $40, $60, $80, $01, $1F, $00 ; $00 - $0F
+Music_RestH_LUT10:
     .byte $07, $08, $0A, $0A, $0F, $16, $14, $14, $1E, $2D, $3C, $5A, $78, $05, $00, $00 ; $10 - $1F
+Music_RestH_LUT20:
     .byte $07, $07, $09, $0A, $0E, $15, $13, $12, $1C, $2A, $38, $54, $70, $01, $04, $00 ; $20 - $2F
+Music_RestH_LUT30:
     .byte $06, $06, $08, $08, $0C, $12, $10, $10, $18, $24, $30, $48, $60, $04, $02, $16 ; $30 - $3F
+Music_RestH_LUT40:
     .byte $05, $05, $07, $06, $0A, $0F, $0D, $0E, $14, $1E, $28, $3C, $50, $03, $01, $13 ; $40 - $4F
+Music_RestH_LUT50:
     .byte $04, $05, $06, $06, $09, $0D, $0C, $0C, $12, $1B, $24, $36, $48, $1E, $03, $00 ; $50 - $5F
+Music_RestH_LUT60:
     .byte $04, $04, $05, $06, $08, $0C, $0B, $0A, $10, $18, $20, $30, $40, $00, $00, $00 ; $60 - $6F
+Music_RestH_LUT70:
     .byte $03, $04, $05, $04, $07, $0A, $09, $0A, $0E, $15, $1C, $2A, $38, $0B, $00, $00 ; $70 - $7F
+Music_RestH_LUT80:
     .byte $03, $03, $04, $04, $06, $09, $08, $08, $0C, $12, $18, $24, $30, $02, $00, $00 ; $80 - $8F
-    .byte $02, $02, $03, $02, $04, $06, $05, $06, $08, $0C, $10, $18, $20            ; $90 - $9C
+Music_RestH_LUT90:
+    .byte $02, $02, $03, $02, $04, $06, $05, $06, $08, $0C, $10, $18, $20                ; $90 - $9C
 
     ; BEGIN UNUSED SPACE (alignment for DMC04)
 
@@ -1331,14 +1389,34 @@ Music_RestH_LUT:
     ; If you're creating a custom hack, delete these $FFs and use the following line instead:
 ; .AlignDMC04:  DMCAlign .AlignDMC04
 
-    .byte $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;.byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+OnOffTileByTS:
+    ; Index by Level_TilesetIdx << 2
+    ; Lowest 2 bits:
+    ;        b00           b01                 b10            b11
+    .byte TILE1_ON, TILE1_OFF_INACTIVE, TILE1_ON_INACTIVE, TILE1_OFF    ; 1 - Plains [15]
+    .byte TILE2_ON, TILE2_OFF_INACTIVE, TILE2_ON_INACTIVE, TILE2_OFF    ; 2 - Fortress [21]
+    .byte TILE3_ON, TILE3_OFF_INACTIVE, TILE3_ON_INACTIVE, TILE3_OFF    ; 3 - Hills [16]
+    .byte TILE4_ON, TILE4_OFF_INACTIVE, TILE4_ON_INACTIVE, TILE4_OFF    ; 4 - High Up [17]
+    .byte TILE6_ON_WATER, TILE6_OFF_W_INACTIVE, TILE6_ON_W_INACTIVE, TILE6_OFF_WATER    ; 5 - Plant infestation (unsupported - special code
+                                ;     uses this location for water tiles)
+    .byte TILE6_ON, TILE6_OFF_INACTIVE, TILE6_ON_INACTIVE, TILE6_OFF    ; 6 - Water [18]
+    .byte $00, $00, $00, $00    ; 7 - Toad house (unsupported)
+    .byte TILE6_ON, TILE6_OFF_INACTIVE, TILE6_ON_INACTIVE, TILE6_OFF    ; 8 - Pipe maze [18]
+    .byte TILE9_ON, TILE9_OFF_INACTIVE, TILE9_ON_INACTIVE, TILE9_OFF    ; 9 - Desert [20]
+    .byte $00, $00, $00, $00    ; 10 - Airship (unsupported)
+    .byte TILE11_ON, TILE11_OFF_INACTIVE, TILE11_ON_INACTIVE, TILE11_OFF    ; 11 - Giant [19]
+    .byte TILE4_ON, TILE4_OFF_INACTIVE, TILE4_ON_INACTIVE, TILE4_OFF    ; 12 - Ice [17]
+    .byte TILE11_ON, TILE11_OFF_INACTIVE, TILE11_ON_INACTIVE, TILE11_OFF    ; 13 - Coin heaven/sky [19]
+    .byte TILE14_ON, TILE14_OFF_INACTIVE, TILE14_ON_INACTIVE, TILE14_OFF    ; 14 - Underground [13]
+    .dsb 55
 
     ; END UNUSED SPACE
 
@@ -1711,12 +1789,12 @@ PRG031_F567:
     ; *** Bring the sound engine (page 28 and page 29) into ROM
     LDA #MMC3_8K_TO_PRG_C000    ; Changing PRG ROM at C000
     STA MMC3_COMMAND        ; Set MMC3 command
-    LDA #29             ; Page 29
+    LDA #39             ; Page 39
     STA MMC3_PAGE           ; Set MMC3 page
 
     LDA #MMC3_8K_TO_PRG_A000    ; Changing PRG ROM at A000
     STA MMC3_COMMAND        ; Set MMC3 command
-    LDA #28             ; Page 28
+    LDA #38             ; Page 38
     STA MMC3_PAGE           ; Set MMC3 page
 
     ; Jump to the sound engine, newly inserted at page A000!
@@ -1725,7 +1803,7 @@ PRG031_F567:
     ; Change A000/C000 back to whatever they were before the sound engine
     JSR PRGROM_Change_Both
 
-    INC Counter_1   ; Simply increments every frame, used for timing
+	INC <Counter_1	 ; Simply increments every frame, used for timing
 
     ; Not sure what this is for
     LDA PAGE_CMD
@@ -3441,28 +3519,28 @@ Read_Joypad_Loop:
     RTS      ; Return
 
     ; Most likely filler / reserved space here
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
-    ;.byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
+    .byte $ff
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; IntReset
@@ -3605,13 +3683,13 @@ PRGROM_Change_C000: ; $FFD1
     RTS             ; Return
 
 
-    ;.byte $FF, $FF, $FF
+    .byte $FF, $FF, $FF
 
     ; A marker of some kind? :)
-    ;.byte "SUPER MARIO 3"
+    .byte "SUPER MARIO 3"
 
     ; Signature?
-    ;.byte $00, $00, $6C, $56, $03, $00, $01, $0C, $01, $2D
+    .byte $00, $00, $6C, $56, $03, $00, $01, $0C, $01, $2D
 
     ; ASSEMBLER BOUNDARY CHECK, END OF $FFFA
     .pad $FFFA, $FF

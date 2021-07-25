@@ -935,7 +935,8 @@ DynJump_LLGen_17:
     BCC _j_DynJump17
 
     ; If we're generating our custom object, we need to JSR to DynJump with our new index
-    SUB #55				; starting Bank 3, Offset 0xB0
+    SEC
+    SBC #55				; starting Bank 3, Offset 0xB0
     STA PageCallVars	; save A
     PLA	; eat our current return address
     PLA	; eat our current return address

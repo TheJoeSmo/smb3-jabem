@@ -5,7 +5,8 @@ LoadLevel_TileMemNextRow_40:
 	; Y = TileAddr_Off
 
 	TYA
-	ADD #16
+    CLC
+	ADC #16
 	TAY		 ; Y += 16
 
 	LDA <Map_Tile_AddrH
@@ -24,7 +25,8 @@ LoadLevel_NextColumn_40:
 
     ; Otherwise, need to move over to the next screen (+$1B0)
     LDA <Map_Tile_AddrL
-    ADD #$b0
+    CLC
+    ADC #$b0
     STA <Map_Tile_AddrL
     LDA <Map_Tile_AddrH
     ADC #$01
@@ -64,16 +66,20 @@ LoadLevel_OnOffs_40:
     CMP #$06                    ; If this is a water tileset, we actually start our On/Off block IDs
                                 ; at the previous tileset in order to support water and air on/offs
     BNE _post_water_sub
-    SUB #$01
+    SEC
+    SBC #$01
 _post_water_sub:
-    SUB #$01                    ; You actually can't use Level_TilesetIdx outside of gameplay context,
+    SEC
+    SBC #$01                    ; You actually can't use Level_TilesetIdx outside of gameplay context,
                                 ; as it is set in Player_DoGameplay
     ASL A
     ASL A
-    ADD PageCallVars
+    CLC
+    ADC PageCallVars
     TAX
     LDA PageCallVars
-    SUB #$02                    ; If this was 2 or 3 (water tileset's air tiles), we need to add it again
+    SEC
+    SBC #$02                    ; If this was 2 or 3 (water tileset's air tiles), we need to add it again
                                 ; to offset to the next tileset IDs rather than the off+ons
     BMI _post_id_offset
     INX

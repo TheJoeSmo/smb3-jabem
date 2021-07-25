@@ -452,7 +452,7 @@ PRG008_A224:
 
 PChg_C000_To_29:
     ; Change page @ C000 to 29
-    LDA #29
+    LDA #39
     STA PAGE_C000
     JMP PRGROM_Change_C000
 

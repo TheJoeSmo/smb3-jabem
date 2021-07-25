@@ -36,16 +36,6 @@
     BPL _1  ; A >= CMP (signed)
     .endm
 
-.macro ADD _1
-    CLC
-    ADC _1
-    .endm
-
-.macro SUB _1
-    SEC
-    SBC _1
-    .endm
-
 .macro NEG  ; RegEx S&R "EOR #\$ff.*\n.*ADD #\$01" -> "NEG"
     EOR #$ff
     CLC
@@ -504,8 +494,8 @@ PAD_RIGHT   = $01
     ; resets to zero.
     Graphics_Queue:     .dsb 1
 
-                .dsb 1   ; $5F unused
-                .dsb 1   ; $60 unused
+    Music_Rest_PtrL: 	.dsb 1	; [ORANGE] $5F-$60 used for current music rest array pointer
+    Music_Rest_PtrH: 	.dsb 1
 
     Level_LayPtr_AddrL: .dsb 1   ; Low byte of address to tile layout (ORIGINAL stored in Level_LayPtrOrig_AddrL)
     Level_LayPtr_AddrH: .dsb 1   ; High byte of address to tile layout (ORIGINAL stored in Level_LayPtrOrig_AddrH)
@@ -2524,7 +2514,21 @@ Tile_Mem:   .dsb 6480    ; $6000-$794F Space used to store the 16x16 "tiles" tha
 
     Player_NoSlopeStick:    .dsb 1   ; If set, Player does not stick to slopes (noticeable running downhill)
 
-                .dsb 105 ; $7997-$79FF unused
+TRACK_TRI = 0
+TRACK_NSE = 2
+TRACK_PCM = 4
+    Music_TriTrkLo:		.dsb 1   ; [ORANGE] $7997-$7998 hold Triangle track pos ptr
+    Music_TriTrkHi:		.dsb 1
+    Music_NseTrkLo:		.dsb 1   ; [ORANGE] $7999-$799A hold Noise track pos ptr
+    Music_NseTrkHi:		.dsb 1
+    Music_PCMTrkLo:		.dsb 1   ; [ORANGE] $799B-$799C hold PCM track pos ptr
+    Music_PCMTrkHi:		.dsb 1
+    Music_NseStartLo:	.dsb 1   ; [ORANGE] $799D-$799E hold Noise track base ptr
+    Music_NseStartHi:	.dsb 1   ;          (noise track restarts when it ends)
+    Music_PCMStartLo:	.dsb 1   ; [ORANGE] $799F-$79A0 hold PCM track base ptr
+    Music_PCMStartHi:	.dsb 1   ;          (pcm track restarts when it ends)
+                        .dsb 95  ; $79A1-$79FF unused
+
     ; Auto scroll effect variables -- everything to do with screens that aren't scrolling in the normal way
     ; NOTE: Post-airship cinematic scene with Toad and King ONLY uses $7A01-$7A11 MMC3 SRAM (from Level_AScrlSelect to Level_AScrlHVelCarry)
 
@@ -4913,17 +4917,19 @@ TILE18_BOUNCEDBLOCK = $C2   ; Temporary tile for when block has been bounced
     .include "PRG/prg027.asm"
     .pad $C000, $FF
 
+    ;;;; [ORANGE] Banks 28 and 29 are now available for use...
+    ;;;; The new music engine and any mods were made to banks 38 and 39
     ; First bank of the sound engine
     ; bank 28
     .base $A000
-    .include "PRG/prg028.asm"
+    ;.include "PRG/prg028.asm"
     .pad $C000, $FF
 
     ; Some of the music segments, tile/block change event, pipe movement code, Toad House code,
     ; Player's draw and animation routines
     ; bank 29
     .base $C000
-    .include "PRG/prg029.asm"
+    ;.include "PRG/prg029.asm"
     .pad $E000, $FF
 
     ; Custom para boss code
@@ -4932,11 +4938,25 @@ TILE18_BOUNCEDBLOCK = $C2   ; Temporary tile for when block has been bounced
     .include "PRG/prg030.asm"
     .pad $C000, $FF
 
-    ; Pad our way to the prg040
-    REPT 9
+    ; Pad our way to the prg038
+    REPT 7
     .base $C000
     .pad $E000, $FF
     ENDR
+
+    ;;;; [ORANGE] New sound engine at 38, 39
+    ; First bank of the sound engine
+    ; bank 38
+    .base $A000
+    .include "PRG/prg038.asm"
+    .pad $C000, $FF
+
+    ; Some of the music segments, tile/block change event, pipe movement code, Toad House code,
+    ; Player's draw and animation routines
+    ; bank 39
+    .base $C000
+    .include "PRG/prg039.asm"
+    .pad $E000, $FF
 
     ; ORANGE - On/Off blocks and room for other things
     .base $C000
