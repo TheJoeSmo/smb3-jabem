@@ -2517,24 +2517,24 @@ Tile_Mem:   .dsb 6480    ; $6000-$794F Space used to store the 16x16 "tiles" tha
 TRACK_TRI = 0
 TRACK_NSE = 2
 TRACK_PCM = 4
-    Music_TriTrkLo:		.dsb 1   ; [ORANGE] $7997-$7998 hold Triangle track pos ptr
-    Music_TriTrkHi:		.dsb 1
-    Music_NseTrkLo:		.dsb 1   ; [ORANGE] $7999-$799A hold Noise track pos ptr
-    Music_NseTrkHi:		.dsb 1
-    Music_PCMTrkLo:		.dsb 1   ; [ORANGE] $799B-$799C hold PCM track pos ptr
-    Music_PCMTrkHi:		.dsb 1
-    Music_NseStartLo:	.dsb 1   ; [ORANGE] $799D-$799E hold Noise track base ptr
-    Music_NseStartHi:	.dsb 1   ;          (noise track restarts when it ends)
-    Music_PCMStartLo:	.dsb 1   ; [ORANGE] $799F-$79A0 hold PCM track base ptr
-    Music_PCMStartHi:	.dsb 1   ;          (pcm track restarts when it ends)
-                        .dsb 95  ; $79A1-$79FF unused
-
+    Music_Bank:             .dsb 1      ; [ORANGE] $7997 hold bank this music is in
+    Music_TriTrkLo:         .dsb 1      ; [ORANGE] $7998-$7999 hold Triangle track pos ptr
+    Music_TriTrkHi:         .dsb 1
+    Music_NseTrkLo:         .dsb 1      ; [ORANGE] $799A-$799B hold Noise track pos ptr
+    Music_NseTrkHi:         .dsb 1
+    Music_PCMTrkLo:         .dsb 1      ; [ORANGE] $799C-$799D hold PCM track pos ptr
+    Music_PCMTrkHi:         .dsb 1
+    Music_NseStartLo:       .dsb 1      ; [ORANGE] $799E-$799F hold Noise track base ptr
+    Music_NseStartHi:       .dsb 1      ;          (noise track restarts when it ends)
+    Music_PCMStartLo:       .dsb 1      ; [ORANGE] $79A0-$79A1 hold PCM track base ptr
+    Music_PCMStartHi:       .dsb 1      ;          (pcm track restarts when it ends)
+                            .dsb 94     ; $79A2-$79FF unused
     ; Auto scroll effect variables -- everything to do with screens that aren't scrolling in the normal way
     ; NOTE: Post-airship cinematic scene with Toad and King ONLY uses $7A01-$7A11 MMC3 SRAM (from Level_AScrlSelect to Level_AScrlHVelCarry)
 
-    AScroll_Anchor:     .dsb 1   ; Used as starting point for $7A00-$7A14 clear, but never actually used in Auto-Scroll
+    AScroll_Anchor:         .dsb 1      ; Used as starting point for $7A00-$7A14 clear, but never actually used in Auto-Scroll
 
-    Level_AScrlSelect:  .dsb 1   ; Selects auto scroll routine to use (see PRG009_B922)
+    Level_AScrlSelect:      .dsb 1      ; Selects auto scroll routine to use (see PRG009_B922)
 
     ; Values used in horizontal scrolling (Level_AScrlSelect = 0/1) only:
     ; $00: World 3-6 / 1-4
@@ -2555,32 +2555,32 @@ TRACK_PCM = 4
     ; $11: Coin Ship
     ; $13: World 8 Tank 1
     ; $14: World 8 Tank 2
-    Level_AScrlLimitSel:    .dsb 1   ; "Limit Selector" for the auto scroll (typically selects an end or a start/end pair, depending on style)
+    Level_AScrlLimitSel:    .dsb 1      ; "Limit Selector" for the auto scroll (typically selects an end or a start/end pair, depending on style)
 
     ; Level_AScrlVar
     ; Variable used for different things depending on the auto scroll style
     ; In horizontal scroll style (Level_AScrlSelect = 0), it's the current "movement" (see table AScroll_Movement)
-    Level_AScrlVar:     .dsb 1
+    Level_AScrlVar:         .dsb 1
 
-    Level_AScrlLoopSel: .dsb 1   ; Currently selected "movement loop" (horizontal only, see AScroll_MovementLoopStart; Just a var in others?)
-    Level_AScrlMoveRepeat:  .dsb 1   ; Repeat current move until zero (decrements each full expiration of Level_AScrlMoveTicks); $FF when on last move, passes control to movement loop
-    Level_AScrlLoopCurMove: .dsb 1   ; Current "movement loop" index (into AScroll_MovementLoop)
-    Level_AScrlSclLastDir:  .dsb 1   ; Auto scroll "Scroll_LastDir"
-    Level_AScrlMoveTicks:   .dsb 1   ; Counts down to zero, decrements Level_AScrlMoveRepeat (goes to next "movement")
-    Level_AScrlTimer:   .dsb 1   ; Auto scroll counter, decrements to zero
-    Level_AScrlPosHHi:  .dsb 1   ; Raster effect horizontal "high" position
+    Level_AScrlLoopSel:     .dsb 1      ; Currently selected "movement loop" (horizontal only, see AScroll_MovementLoopStart; Just a var in others?)
+    Level_AScrlMoveRepeat:  .dsb 1      ; Repeat current move until zero (decrements each full expiration of Level_AScrlMoveTicks); $FF when on last move, passes control to movement loop
+    Level_AScrlLoopCurMove: .dsb 1      ; Current "movement loop" index (into AScroll_MovementLoop)
+    Level_AScrlSclLastDir:  .dsb 1      ; Auto scroll "Scroll_LastDir" 
+    Level_AScrlMoveTicks:   .dsb 1      ; Counts down to zero, decrements Level_AScrlMoveRepeat (goes to next "movement")
+    Level_AScrlTimer:       .dsb 1      ; Auto scroll counter, decrements to zero
+    Level_AScrlPosHHi:      .dsb 1      ; Raster effect horizontal "high" position
 
-                .dsb 1   ; $7A0B
+                            .dsb 1      ; $7A0B
 
-    Level_AScrlPosH:    .dsb 1   ; Raster effect horizontal position
-    Level_AScrlPosV:    .dsb 1   ; Raster effect vertical position
-    Level_AScrlHVel:    .dsb 1   ; Auto scroll horizontal "velocity"
-    Level_AScrlVVel:    .dsb 1   ; Auto scroll vertical "velocity"
-    Level_AScrlHVelFrac:    .dsb 1   ; Auto scroll horizontal velocity fractional accumulator
-    Level_AScrlVVelFrac:    .dsb 1   ; Auto scroll vertical velocity fractional accumulator
-    Level_AScrlHVelCarry:   .dsb 1   ; '1' when last auto scroll H Velocity fraction accumulation rolled over
-    Level_AScrlVVelCarry:   .dsb 1   ; '1' when last auto scroll V Velocity fraction accumulation rolled over
-    World8Tank_OnTank:  .dsb 1   ; Set when Player is standing on tank surface in Tank level (as opposed to ground); for the illusion the tank is moving through...
+    Level_AScrlPosH:        .dsb 1      ; Raster effect horizontal position
+    Level_AScrlPosV:        .dsb 1      ; Raster effect vertical position
+    Level_AScrlHVel:        .dsb 1      ; Auto scroll horizontal "velocity"
+    Level_AScrlVVel:        .dsb 1      ; Auto scroll vertical "velocity"
+    Level_AScrlHVelFrac:    .dsb 1      ; Auto scroll horizontal velocity fractional accumulator 
+    Level_AScrlVVelFrac:    .dsb 1      ; Auto scroll vertical velocity fractional accumulator 
+    Level_AScrlHVelCarry:   .dsb 1      ; '1' when last auto scroll H Velocity fraction accumulation rolled over
+    Level_AScrlVVelCarry:   .dsb 1      ; '1' when last auto scroll V Velocity fraction accumulation rolled over
+    World8Tank_OnTank:      .dsb 1      ; Set when Player is standing on tank surface in Tank level (as opposed to ground); for the illusion the tank is moving through...
 ;;;;;;;;;;;;
 
 
@@ -4963,11 +4963,19 @@ TILE18_BOUNCEDBLOCK = $C2   ; Temporary tile for when block has been bounced
     .include "PRG/prg040.asm"
     .pad $E000, $FF
 
-    ; Pad our way to the end of file for bank 62, 63
-    REPT 21
+    ; Pad our way to bank 60
+    REPT 19
     .base $C000
     .pad $E000, $FF
     ENDR
+
+    .base $C000
+    .include "PRG/prg060.asm"
+    .pad $E000, $FF
+
+    ; bank 61 currently empty
+    .base $C000
+    .pad $E000, $FF
 
     ; This bank is ALWAYS active in ROM, sitting at 8000h-9FFFh
     ; Contains interrupt handling code and other constantly reused functionality
