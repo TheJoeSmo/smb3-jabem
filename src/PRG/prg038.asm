@@ -1397,13 +1397,13 @@ M2BSegHedr24:    MusSeg 60, Music_RestH_LUT40, M2BSegData1B, $19, M2BSegData1B_T
     ; be played ($10, $20, $30, ... $C0), so that song $10 uses a start
     ; index of $00, an end index of $06, and a loop index of $01.
 Music_Set2B_Starts:
-    .byte $00, $07, $08, $0C, $0F, $13, $15, $1B, $1E, $1B, $27, $2C
+    .byte $00, $07, $08, $0C, $0F, $13, $15, $1B, $1E, $1B, $27, $2C, $2D
 
 Music_Set2B_Ends:
-    .byte $06, $07, $0B, $0E, $12, $14, $1A, $1D, $26, $1D, $2B, $2C
+    .byte $06, $07, $0B, $0E, $12, $14, $1A, $1D, $26, $1D, $2B, $2C, $5C
 
 Music_Set2B_Loops:
-    .byte $01, $07, $09, $0C, $10, $13, $18, $1B, $1F, $1B, $28, $2C
+    .byte $01, $07, $09, $0C, $10, $13, $18, $1B, $1F, $1B, $28, $2C, $2D
 
 
     ; These are Set 2B music segments.  Note that more exist on page 29.
@@ -1530,6 +1530,14 @@ Music_Set2B_HedrPtrs:
     .word M2BSegHedr20, M2BSegHedr21, M2BSegHedr22, M2BSegHedr23        ; Index $28-$2B
     .word M2BSegHedr24  ; Index $2C
 
+    .word SSHedr1, SSHedr2, SSHedr3, SSHedr4, SSHedr5, SSHedr6          ; $2D, $2E, $2F, $30, $31, $32
+    .word SSHedr5, SSHedr6, SSHedr7, SSHedr8, SSHedr9, SSHedr10         ; $33, $34, $35, $36, $37, $38
+    .word SSHedr11, SSHedr12, SSHedr13, SSHedr14, SSHedr15, SSHedr16    ; $39, $3A, $3B, $3C, $3D, $3E
+    .word SSHedr17, SSHedr18, SSHedr19, SSHedr20, SSHedr21, SSHedr22    ; $3F, $40, $41, $42, $43, $44
+    .word SSHedr23, SSHedr24, SSHedr25, SSHedr26, SSHedr27, SSHedr28    ; $45, $46, $47, $48, $49, $4A
+    .word SSHedr29, SSHedr30, SSHedr31, SSHedr32, SSHedr33, SSHedr34    ; $4B, $4C, $4D, $4E, $4F, $50
+    .word SSHedr35, SSHedr36, SSHedr37, SSHedr38, SSHedr39, SSHedr39    ; $51, $52, $53, $54, $55, $56
+    .word SSHedr40, SSHedr40, SSHedr41, SSHedr41, SSHedr42, SSHedr42    ; $57, $58, $59, $5A, $5B, $5C
 
 set1_set2a_ptrs: Align100h set1_set2a_ptrs
 Music_Set1_Set2A_Ptrs:
@@ -1589,5 +1597,7 @@ _orig_getrestticks:
     TAY
     LDA (Music_Rest_PtrL),Y
     RTS		 	; Return
+
+SSHedr1: MusSeg 61, SS_R1, SS_1, $5B, SS_Tri1, SS_Nse1, $0000
 
 _prg038_end:

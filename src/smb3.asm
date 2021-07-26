@@ -1473,6 +1473,7 @@ MUS2B_ATHLETIC      = $90   ; Overworld 2
 MUS2B_PSWITCH       = $A0   ; P-Switch
 MUS2B_BOWSER        = $B0   ; Bowser
 MUS2B_WORLD8LETTER  = $C0   ; Bowser's World 8 Letter
+MUS2B_SILVERSURFER  = $D0
 MUS2B_MASK      = $F0   ; Not intended for use in code, readability/traceability only
     Sound_QMusic2:      .dsb 1
 
@@ -4986,12 +4987,14 @@ TILE18_BOUNCEDBLOCK = $C2   ; Temporary tile for when block has been bounced
     .pad $E000, $FF
     ENDR
 
+    ; This bank contains all the original music
     .base $C000
     .include "PRG/prg060.asm"
     .pad $E000, $FF
 
-    ; bank 61 currently empty
+    ; This bank contains the Silver Surfer song
     .base $C000
+    .include "PRG/prg061.asm"
     .pad $E000, $FF
 
     ; This bank is ALWAYS active in ROM, sitting at 8000h-9FFFh

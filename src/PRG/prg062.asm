@@ -530,6 +530,8 @@ PRG030_845A:
     STA PPU_CTL1        ; Generate VBlank Resets, use 8x16 sprites, sprites use PT2
     STA PPU_CTL1_Copy  ; Keep PPU_CTL1_Copy in sync!
 
+    LDA #MUS2B_SILVERSURFER
+    STA Sound_QMusic2
     JSR Do_Title_Screen ; Do the title screen!
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
