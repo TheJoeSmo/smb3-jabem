@@ -4204,7 +4204,7 @@ GamePlay_BGM:
     .byte MUS2B_ATHLETIC    ; 8
     .byte MUS2A_THRONEROOM  ; 9
     .byte MUS2A_SKY     ; 10
-
+    .byte MUS2B_ALADDIN
 
 LevelLoad:  ; $97B7
 

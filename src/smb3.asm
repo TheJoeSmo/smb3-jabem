@@ -1474,6 +1474,7 @@ MUS2B_PSWITCH       = $A0   ; P-Switch
 MUS2B_BOWSER        = $B0   ; Bowser
 MUS2B_WORLD8LETTER  = $C0   ; Bowser's World 8 Letter
 MUS2B_SILVERSURFER  = $D0
+MUS2B_ALADDIN       = $E0
 MUS2B_MASK      = $F0   ; Not intended for use in code, readability/traceability only
     Sound_QMusic2:      .dsb 1
 
@@ -4981,11 +4982,16 @@ TILE18_BOUNCEDBLOCK = $C2   ; Temporary tile for when block has been bounced
     .include "PRG/prg040.asm"
     .pad $E000, $FF
 
-    ; Pad our way to bank 60
-    REPT 19
+    ; Pad our way to bank 59
+    REPT 18
     .base $C000
     .pad $E000, $FF
     ENDR
+
+    ; This bank contains the Aladdin song
+    .base $C000
+    .include "PRG/prg059.asm"
+    .pad $E000, $FF
 
     ; This bank contains all the original music
     .base $C000
