@@ -5857,7 +5857,7 @@ Player_Die:
     LDA #-64
     STA Player_YVel ; Player_YVel = -64
 
-    LDA #$30
+    LDA #$14            ; a nice, small delay for the player to understand why they died
     STA Event_Countdown ; Event_Countdown = $30 (ticks until dropped back to map)
 
     LDA #$01
