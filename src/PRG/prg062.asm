@@ -135,7 +135,7 @@ Video_Upd_Table: ; $803E
     ; Sync this with PRG026 Flip_MidBStatCards
     DBYT _1 + $40
     ; Discrepency --------v  (Pattern is ... $FE, $FE ... in PRG030 status bar)  Unimportant; inserts <M> which is replaced anyway
-    .byte $20, $FC, $A6, $FE, $FE, $FB, $FE, $F3, $FE, $F0, $F0, $F0, $F0, $F0, $F0, $F0    ; [M/L]x  000000 c000| etc.
+    .byte 32, $FC, $A6, $74, $75, $76, $77, $FB, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE    ; [M/L]x  000000 c000| etc.
     .byte $FE, $ED, $F4, $F0, $F0, $A7, $A6, $FE, $FE, $AA, $FE, $FE, $AA, $FE, $FE, $A7, $FC
     ; Discrepency --------^  (Pattern is ... $F4, $F0 ... in PRG030 status bar graphics)
 
@@ -2875,8 +2875,13 @@ PRG030_910C:
     LDA Map_PlayerLost2PVs
     BNE PRG030_9128  ; If Map_PlayerLost2PVs is set, jump to PRG030_9128
 
-    DEC Player_Lives,X  ; One less life for the Player...
-    BMI PRG030_9133     ; If fell below zero, GAMEOVER!; jump to PRG030_9133
+    ;DEC Player_Lives,X  ; One less life for the Player...
+    ;BMI PRG030_9133     ; If fell below zero, GAMEOVER!; jump to PRG030_9133
+    INC Player_Deaths+2
+    BNE PRG030_9128
+    INC Player_Deaths+1
+    BNE PRG030_9128
+    INC Player_Deaths
 
 PRG030_9128:
 
@@ -2887,42 +2892,42 @@ PRG030_9128:
     STY Map_Operation    ; Map_Operation = 2
     JMP PRG030_84D7     ; Jump to PRG030_84D7
 
-PRG030_9133:
+;PRG030_9133:
 
-    ; GAME OVER!!
+    ; GAME OVER!! (ORANGE: Now Unused)
 
     ; Set Player as twirling (in case they Continue...)
-    LDA #$01
-    ABS_STA_X World_Map_Twirl ; STA World_Map_Twirl,X
+    ;LDA #$01
+    ;ABS_STA_X World_Map_Twirl ; STA World_Map_Twirl,X
 
     ; Init map vars
-    LDA #$00
-    STA Level_Tileset
-    STA Map_EnterLevelFX
-    STA Map_WarpWind_FX
-    STA Map_Intro_Tick
+    ;LDA #$00
+    ;STA Level_Tileset
+    ;STA Map_EnterLevelFX
+    ;STA Map_WarpWind_FX
+    ;STA Map_Intro_Tick
 
     ; Map_GameOver_CursorY = $60
-    LDA #$60
-    STA Map_GameOver_CursorY
+    ;LDA #$60
+    ;STA Map_GameOver_CursorY
 
 PRG030_9149:
-    JSR Sprite_RAM_Clear
-    JSR Scroll_PPU_Reset
-    JSR Reset_PPU_Clear_Nametables
+    ;JSR Sprite_RAM_Clear
+    ;JSR Scroll_PPU_Reset
+    ;JSR Reset_PPU_Clear_Nametables
 
-    LDA #%00101000      ; use 8x16 sprites, sprites use PT2 (NOTE: No VBlank trigger!)
-    STA PPU_CTL1
-    STA PPU_CTL1_Copy  ; Keep PPU_CTL1_Copy in sync!
+    ;LDA #%00101000      ; use 8x16 sprites, sprites use PT2 (NOTE: No VBlank trigger!)
+    ;STA PPU_CTL1
+    ;STA PPU_CTL1_Copy  ; Keep PPU_CTL1_Copy in sync!
 
-    LDA World_EnterState
-    BNE PRG030_9163  ; If World_EnterState <> 0, jump to PRG030_9163
+    ;LDA World_EnterState
+    ;BNE PRG030_9163  ; If World_EnterState <> 0, jump to PRG030_9163
 
     ; Otherwise, gotta player the game over music!
-    LDA #MUS1_GAMEOVER
-    STA Sound_QMusic1
+    ;LDA #MUS1_GAMEOVER
+    ;STA Sound_QMusic1
 
-PRG030_9163:
+;PRG030_9163:
 
     ; Load up graphics
     LDA #$14

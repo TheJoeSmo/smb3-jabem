@@ -217,7 +217,7 @@ Flip_MidBItems:
     DBYT $2B40
 
     ;                 |    < M >     x  [ Lives]
-    .byte  32, $FC, $A6, $74, $75, $FB, $FE, $F3, $FE, $FE
+    .byte  32, $FC, $A6, $74, $75, $76, $77, $FB, $FE, $FE
 
     ; Bottom of items start rendering here (replaced at runtime)
     ;      Item 1         Item 2         Item 3         Item 4         Item 5         Item 6         Item 7
@@ -315,7 +315,7 @@ Flip_MidBStatCards:
     DBYT $2B40
 
     ; Discrepency --------v  (Pattern is ... $FE, $FE ... in PRG030 status bar)  Unimportant; inserts <M> which is replaced anyway
-    .byte  32, $FC, $A6, $74, $75, $FB, $FE, $F3, $FE, $F0, $F0, $F0, $F0, $F0, $F0 ; [M/L]x  000000 c000| etc.
+    .byte  32, $FC, $A6, $74, $75, $76, $77, $FB, $FE, $F0, $F0, $F0, $F0, $F0, $F0 ; [M/L]x  000000 c000| etc.
     .byte $F0, $FE, $ED, $F0, $F0, $F0, $A7, $A6, $FE, $FE, $AA, $FE, $FE, $AA, $FE
     .byte $FE, $A7, $FC
     ; Discrepency --------^  (Pattern is ... $F4, $F0 ... in PRG030 status bar graphics)
@@ -624,10 +624,10 @@ InvFlipFrame_DrawMLLivesScore:
 
     LDX Temp_Var9       ; X = Temp_Var9
 
-    LDA StatusBar_LivesH
-    STA Graphics_Buffer+8,X
-    LDA StatusBar_LivesL
-    STA Graphics_Buffer+9,X
+    ;LDA StatusBar_LivesH
+    ;STA Graphics_Buffer+8,X
+    ;LDA StatusBar_LivesL
+    ;STA Graphics_Buffer+9,X
 
     LDA InvFlip_Frame
     AND #$08
@@ -3039,13 +3039,13 @@ StatusBar_Fill_MorL:
     LDA Player_Current
     ASL A           ; A = Player_Current << 1
     TAX         ; X = A
-    LDA #$01        ; A = 1
+    LDA #$04        ; A = 4
     STA Temp_Var15     ; Temp_Var15 = 1
     LDY Graphics_BufCnt ; Y = Graphics_BufCnt
 
     ; Loop to copy the two tiles
 PRG026_B114:
-    LDA PRG026_B104,X   ; Get player-relevant tile
+    LDA PRG026_DEATHSx,X   ; Get "DEATHS x:" tiles
     STA Graphics_Buffer+3,Y ; -> graphics buffer
 
     INX         ; X++
@@ -3085,14 +3085,14 @@ PRG026_B13E:
     LDA #$42
     STA Graphics_Buffer+1,Y
 
-    ; Run length of 2
-    LDA #$02
+    ; Run length of 5
+    LDA #$05
     STA Graphics_Buffer+2,Y
 
     ; Update buffer count appropriately
     LDA Graphics_BufCnt
     CLC
-    ADC #$05
+    ADC #$08
     STA Graphics_BufCnt
     RTS      ; Return
 
@@ -3114,20 +3114,20 @@ PRG026_B16C:    .byte $01, $0A, $64, $E8, $10, $A0
 PRG026_B172:    .byte $0F, $42, $3F
 
 StatusBar_Fill_Score:
-    LDA Player_Score+2  ; Get least significant byte of score
-    CLC
-    ADC Score_Earned    ; Add in any earned points
-    STA Player_Score+2  ; Store into least significant digit
+    LDA Player_Deaths+2  ; Get least significant byte of score
+    ;CLC
+    ;ADC Score_Earned    ; Add in any earned points
+    ;STA Player_Score+2  ; Store into least significant digit
     STA Temp_Var1      ; Keep LSD in Temp_Var1
 
-    LDA Player_Score+1  ; Get next higher byte
-    ADC Score_Earned+1  ; Add score and carry to of earned high byte to middle score byte
-    STA Player_Score+1  ; Store result
+    LDA Player_Deaths+1  ; Get next higher byte
+    ;ADC Score_Earned+1  ; Add score and carry to of earned high byte to middle score byte
+    ;STA Player_Score+1  ; Store result
     STA Temp_Var2      ; Keep middle digit in Temp_Var2
 
-    LDA Player_Score    ; Get most significant byte of score
-    ADC #$00        ; Add in any carry
-    STA Player_Score    ; Store result
+    LDA Player_Deaths    ; Get most significant byte of score
+    ;ADC #$00        ; Add in any carry
+    ;STA Player_Score    ; Store result
     STA Temp_Var3      ; Keep MSD in Temp_Var3
 
     ; This giant loop is how you use an 8-bit CPU to display
@@ -3190,7 +3190,7 @@ PRG026_B1B8:
     LDX #$02        ; X = 2
 PRG026_B1E9:
     LDA PRG026_B172,X
-    STA Player_Score,X
+    STA Player_Deaths,X
 
     DEX      ; X--
     BPL PRG026_B1E9  ; While X >= 0, loop!
@@ -3632,11 +3632,11 @@ TileChng_VRAMCommit:
 
 ; Same format as data from Video_Upd_Table in PRG030, check there for details
 ; This is used as a template, but actual values will be overwritten below...
-StatusBar_UpdTemplate:
+StatusBar_UpdTemplate:   ;;; [ORANGE] Modified for "DEATHS x:"
     DBYT $2B28
-    .byte $0C, $EF, $EF, $EF, $EF, $EF, $EF, $AE, $AF, $FE, $EC, $F0, $F0
+    .byte 12, $EF, $EF, $EF, $EF, $EF, $EF, $AE, $AF, $FE, $EC, $F0, $F0
     DBYT $2B45
-    .byte $0F, $FE, $F0, $FE, $F0, $F0, $F0, $F0, $F0, $F0, $F0, $FE, $ED, $F0, $F0, $F0
+    .byte $0F, $77, $FB, $FE, $F0, $F0, $F0, $F0, $F0, $F0, $FE, $FE, $ED, $F0, $F0, $F0
     .byte $00 ; Terminator
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3714,10 +3714,10 @@ PRG026_B48B:
 
     ; *** Lives copy
     LDY Graphics_BufCnt  ; Y = Graphics_BufCnt
-    LDA StatusBar_LivesH
-    STA Graphics_Buffer+18,Y
-    LDA StatusBar_LivesL
-    STA Graphics_Buffer+19,Y
+    ;LDA StatusBar_LivesH
+    ;STA Graphics_Buffer+18,Y
+    ;LDA StatusBar_LivesL
+    ;STA Graphics_Buffer+19,Y
 
     ; *** Score copy loop
     LDY Graphics_BufCnt ; Y = Graphics_BufCnt
@@ -3812,3 +3812,6 @@ PRG026_B51F:
     RTS      ; Return
 
 ; Rest of ROM bank was empty...
+
+PRG026_DEATHSx:
+    .byte $74, $75, $76, $77, $FB
