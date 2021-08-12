@@ -635,7 +635,7 @@ KingPatternTable_ByWorld:
     .byte $1E, $1F, $1F, $1F, $1F, $1E, $1E
 
     ; Attribute settings for the King, by world, top and bottom sprites
-KingAttr_ByWorld_Top:       .byte $02, $02, $02, $02, $02, $02, $02
+KingAttr_ByWorld_Top:       .byte $02, $02, $02, $02, $02, $01, $02
 KingAttr_ByWorld_Bottom:    .byte $03, $02, $03, $02, $02, $03, $02
 
     ; King's pattern index offset by world
