@@ -697,7 +697,7 @@ PRG029_D13A:
 	RTS		 ; Return
 
 ToadHouse_Item2Inventory:
-	.byte $0C, $08, $04, $05, $06, $04, $05, $06, $01, $02, $03, $04, $02, $03, $05
+	.byte $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
 	; Toad House items:
 	; 0 = Warp Whistle
