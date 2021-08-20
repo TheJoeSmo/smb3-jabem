@@ -4556,7 +4556,7 @@ PRG001_B819:
 ObjInit_Bowser:
 
     ; Bowser takes 34 fireball hits!
-    LDA #34
+    LDA #60
     STA Objects_HitCount,X
 
     ; Bowser is giant!
@@ -4586,14 +4586,14 @@ ObjNorm_Bowser:
 
 PRG001_B8A1:
     LDA Bowser_Counter2
-    AND #%00011111
+    AND #%00000111
     BEQ PRG001_B8AB  ; Every 32 ticks of Bowser's second counter, jump to PRG001_B8AB
 
     DEC Bowser_Counter2  ; Bowser_Counter2--
 
 PRG001_B8AB:
     JSR Bowser_DoVar5Action ; Do Bowser's internal state action
-    JSR Bowser_HopAndBreatheFire    ; Bowser hops and breathes fireballs
+    ;JSR Bowser_HopAndBreatheFire    ; Bowser hops and breathes fireballs
     JSR Player_HitEnemy     ; Do hit detection
 
     LDA Objects_PlayerHitStat,X
@@ -4703,7 +4703,7 @@ Bowser_DoMovements:
     JSR Bowser_HandleIfDead  ; Handle Bowser if he got killed
 
     LDA Level_NoStopCnt
-    AND #%00011111
+    AND #%000000111 ; BOWSER_TIMER_XXX
     ORA Bowser_Counter1
     BNE PRG001_B948  ; If Bowser Counter 1 > 0 and except every 32nd tick, jump to PRG001_B948
 
@@ -4744,7 +4744,7 @@ Bowser_FallToFloor:
     JSR Bowser_Counter3Do    ; Update Bowser_Counter3
 
     LDA Bowser_Counter2
-    AND #$1f
+    AND #$00
     BEQ PRG001_B97C  ; Every 32 ticks of Bowser_Counter2, jump to PRG001_B97C
 
     LSR A
@@ -4801,7 +4801,7 @@ Bowser_XVelByDist:
 
 PRG001_B9B5:
     LDA Bowser_Counter2
-    AND #$1f
+    AND #$05
     BNE PRG001_B9BF  ; Only continue 1:32 ticks, otherwise jump to PRG001_B9BF
 
     INC Objects_Frame,X  ; Bowser's frame++
@@ -4811,7 +4811,7 @@ PRG001_B9BF:
     CMP #$01
     BEQ PRG001_B9F3  ; If timer expired, jump to PRG001_B9F3
 
-    CMP #$80
+    CMP #$9F ; 80
     BNE PRG001_B9F2  ; If timer <> $80, jump to PRG001_B9F2 (RTS)
 
     ; Jump and land on floor mode
@@ -4855,6 +4855,16 @@ PRG001_B9F3:
     ; Little hop
     LDA #-$10
     STA Objects_YVel,X
+    ; [kanga's addition]
+    JSR Bowser_CalcPlayersSide
+    STY <Temp_Var1
+    CPY #$00
+    BEQ BowserJumpRight
+
+    JSR Bowser_CalcPlayersSide
+    STY <Temp_Var1
+    CPY #$01
+    BEQ BowserJumpLeft
 
     RTS      ; Return
 
@@ -4863,6 +4873,15 @@ PRG001_B9F3:
 Bowser_VsPlayerXVelNegBit:
     .byte $00, $80
 
+BowserJumpLeft:
+    LDA #-$25 ; 10
+    STA <Objects_XVel,X
+    ;JSR Paragoomba_DropMicrogoombas
+    RTS
+BowserJumpRight:
+    LDA #$25
+    STA <Objects_XVel,X
+    RTS
 
 Bowser_JumpAndLandOnFloor:
     LDA Objects_YVel,X
@@ -5079,20 +5098,20 @@ PRG001_BAF1:
 
     ; When Bowser lands, he looks around a bit for a second
 
-    LSR A
-    LSR A
-    CLC
-    ADC Objects_Var7,X  ; ?? Not used in anything else Bowser does?
-    AND #$07
-    TAY      ; Y = 0 to 7
+    ;LSR A
+    ;LSR A
+    ;CLC
+    ;ADC Objects_Var7,X  ; ?? Not used in anything else Bowser does?
+    ;AND #$07
+    ;TAY      ; Y = 0 to 7
 
     ; Set frame
-    LDA Bowser_LookAroundFrames,Y
-    STA Objects_Frame,X
+    ;LDA Bowser_LookAroundFrames,Y
+    ;STA Objects_Frame,X
 
     ; Set flip bits
-    LDA Bowser_LookAroundFlipBits,Y
-    STA Objects_FlipBits,X
+    ;LDA Bowser_LookAroundFlipBits,Y
+    ;STA Objects_FlipBits,X
 
     RTS      ; Return
 
@@ -5124,25 +5143,25 @@ Bowser_HoppingFrames:
     .byte $00, $00, $03, $02, $00, $00, $00, $00
 
 Bowser_HopAndBreatheFire:
-    LDA Bowser_Counter1
-    BEQ PRG001_BB46  ; If Bowser_Counter1 = 0, jump to PRG001_BB46 (RTS)
+    ;LDA Bowser_Counter1
+    ;BEQ PRG001_BB46  ; If Bowser_Counter1 = 0, jump to PRG001_BB46 (RTS)
 
-    LSR A
-    LSR A
-    LSR A
-    LSR A
-    AND #$07
-    TAY      ; Y = 0 to 7
+    ;LSR A
+    ;LSR A
+    ;LSR A
+    ;LSR A
+    ;AND #$07
+    ;TAY      ; Y = 0 to 7
 
     ; Bowser's little hopping animation
-    LDA Bowser_HoppingFrames,Y
-    STA Objects_Frame,X
+    ;LDA Bowser_HoppingFrames,Y
+    ;STA Objects_Frame,X
 
-    LDA Bowser_Counter1
-    CMP #$10
-    BNE PRG001_BB46  ; If Bowser_Counter1 <> $10, jump to PRG001_BB46 (RTS)
+    ;LDA Bowser_Counter1
+    ;CMP #$10
+    ;BNE PRG001_BB46  ; If Bowser_Counter1 <> $10, jump to PRG001_BB46 (RTS)
 
-    JSR Bowser_BreatheFire   ; Bowser breathe's a fireball!
+    ;JSR Bowser_BreatheFire   ; Bowser breathe's a fireball!
 
 PRG001_BB46:
     RTS      ; Return
