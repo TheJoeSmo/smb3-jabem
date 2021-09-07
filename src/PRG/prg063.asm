@@ -3227,7 +3227,7 @@ Clear_Nametable:    ; $FDC7:
     ; This writes over the entire selected name table and attribute table with $FC
     LDX #$04     ; X = $04
     LDY #$00     ; Y = $00
-    LDA #$fc     ; A = $FC
+    LDA #$f7     ; A = $FC
 PRG031_FDE1:
     STA PPU_VRAM_DATA    ; Write $FC to NT
     DEY      ; Y--

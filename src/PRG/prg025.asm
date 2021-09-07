@@ -344,8 +344,8 @@ Title_Checkerboard_Floor:
 
     DBYT $2B00
     .byte 32    ; 32 bytes to follow
-    .byte $15, $15, $16, $16, $15, $15, $16, $16, $15, $15, $16, $16, $15, $15, $16, $16
-    .byte $15, $15, $16, $16, $15, $15, $16, $16, $15, $15, $16, $16, $15, $15, $16, $16
+    .byte $EB, $EB, $EC, $EC, $EB, $EB, $EC, $EC, $EB, $EB, $EC, $EC, $EB, $EB, $EC, $EC
+    .byte $EB, $EB, $EC, $EC, $EB, $EB, $EC, $EC, $EB, $EB, $EC, $EC, $EB, $EB, $EC, $EC
 
     DBYT $2B20
     .byte 32    ; 32 bytes to follow
@@ -359,274 +359,272 @@ Title_Checkerboard_Floor:
 
     DBYT $2B60
     .byte 32    ; 32 bytes to follow
-    .byte $5D, $5D, $5F, $5F, $5D, $5D, $5F, $5F, $5D, $5D, $5F, $5F, $5D, $5D, $5F, $5F
-    .byte $5D, $5D, $5F, $5F, $5D, $5D, $5F, $5F, $5D, $5D, $5F, $5F, $5D, $5D, $5F, $5F
+    .byte $F6, $F6, $F7, $F7, $F6, $F6, $F7, $F7, $F6, $F6, $F7, $F7, $F6, $F6, $F7, $F7
+    .byte $F6, $F6, $F7, $F7, $F6, $F6, $F7, $F7, $F6, $F6, $F7, $F7, $F6, $F6, $F7, $F7
+
+    DBYT $2B80
+    .byte VU_REPEAT | $20, $F7
+    DBYT $2BA0
+    .byte VU_REPEAT | $20, $F7
 
     ; Terminator!
     .byte $00
 
 TitleScreen_LogoLine01:
     DBYT $2000
-    .byte $20, $08, $09, $08, $09, $08, $09, $08, $09, $08, $09, $08, $09, $08, $09, $08
-    .byte $09, $08, $09, $08, $09, $08, $09, $08, $09, $08, $09, $08, $09, $08, $09, $08
-    .byte $09
+    .byte VU_REPEAT | $20, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine02:
     DBYT $2020
-    .byte $20, $18, $19, $18, $19, $18, $19, $18, $19, $18, $19, $18, $19, $18, $19, $18
-    .byte $19, $18, $19, $18, $19, $18, $19, $18, $19, $18, $19, $18, $19, $18, $19, $18
-    .byte $19
+    .byte VU_REPEAT | $20, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine03:
     DBYT $2040
-    .byte $20, $28, $29, $28, $29, $28, $29, $28, $29, $28, $29, $28, $29, $28, $29, $28
-    .byte $29, $28, $29, $28, $29, $28, $29, $28, $29, $28, $29, $28, $29, $28, $29, $28
-    .byte $29
+    .byte VU_REPEAT | $20, $5C
 
     ; Terminator
     .byte $00
 
+; First line of "THE"
 TitleScreen_LogoLine04:
     DBYT $2060
-    .byte VU_REPEAT | $20, $5C
+    .byte VU_REPEAT | $0D, $5C
+    DBYT $206D
+    .byte $08, $06, $07, $08, $09, $0A, $0B, $0C, $0D
+    DBYT $2075
+    .byte VU_REPEAT | $0B, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine05:
     DBYT $2080
+    .byte VU_REPEAT | $0D, $5C
+    DBYT $208D
+    .byte $08, $16, $17, $18, $19, $1A, $1B, $1C, $1D
+    DBYT $2095
     .byte VU_REPEAT | $0B, $5C
-
-    DBYT $208B
-    .byte $15, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $5C, $5C, $5C, $5C
-    .byte $3B, $3C, $3D, $3E, $5C, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine06:
     DBYT $20A0
-    .byte VU_REPEAT | $0B, $5C
-
-    DBYT $20AB
-    .byte $15, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $4A, $5C, $5C, $5C, $5C
-    .byte $4B, $4C, $4D, $4E, $5C, $5C
+    .byte VU_REPEAT | $0D, $5C
+    DBYT $20AD
+    .byte $09, $26, $27, $28, $29, $2A, $2B, $2C, $2D, $2E
+    DBYT $20B6
+    .byte VU_REPEAT | $0A, $5C
 
     ; Terminator
     .byte $00
 
+; Last line of "THE"
 TitleScreen_LogoLine07:
     DBYT $20C0
-    .byte $16, $5C, $5C, $3B, $3C, $3D, $3E, $5C, $5C, $5C, $5C, $5C, $50, $51, $52, $53
-    .byte $54, $55, $56, $57, $58, $59, $5A
-
+    .byte VU_REPEAT | $0D, $5C
+    DBYT $20CD
+    .byte $09, $36, $37, $38, $39, $3A, $3B, $3C, $3D, $3E
     DBYT $20D6
     .byte VU_REPEAT | $0A, $5C
 
     ; Terminator
     .byte $00
 
+; First line of "AROBAM"
 TitleScreen_LogoLine08:
     DBYT $20E0
-    .byte $16, $5C, $5C, $4B, $4C, $4D, $4E, $5C, $5C, $5C, $5C, $5C, $60, $61, $62, $63
-    .byte $64, $65, $66, $67, $68, $69, $6A
-
-    DBYT $20F6
     .byte VU_REPEAT | $0A, $5C
+    DBYT $20EA
+    .byte $0F, $43, $44, $45, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $4E, $4F, $10, $11
+    DBYT $20F9
+    .byte VU_REPEAT | $07, $5C
+
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine09:
     DBYT $2100
-    .byte $20, $5C, $5C, $5C, $5C, $5C, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79
-    .byte $7A, $7B, $5C, $7D, $7E, $7F, $C0, $C1, $C2, $C3, $C4, $C5, $5C, $5C, $5C, $5C
-    .byte $5C
+    .byte VU_REPEAT | $0A, $5C
+    DBYT $210A
+    .byte $10, $53, $54, $55, $56, $57, $58, $59, $5A, $5B, $00, $01, $02, $03, $20, $21, $12
+    DBYT $211A
+    .byte VU_REPEAT | $06, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine10:
     DBYT $2120
-    .byte $20, $5C, $5C, $5C, $5C, $5C, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
-    .byte $8A, $8B, $8C, $8D, $8E, $8F, $D0, $D1, $D2, $D3, $D4, $D5, $5C, $5C, $5C, $5C
-    .byte $5C
+    .byte VU_REPEAT | $09, $5C
+    DBYT $2129
+    .byte $11, $62, $63, $64, $65, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F, $30, $31, $22
+    DBYT $213A
+    .byte VU_REPEAT | $06, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine11:
     DBYT $2140
-    .byte $20, $5C, $5C, $5C, $5C, $5C, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99
-    .byte $9A, $9B, $9C, $9D, $9E, $9F, $E0, $E1, $E2, $E3, $E4, $E5, $5C, $5C, $5C, $5C
-    .byte $5C
+    .byte VU_REPEAT | $09, $5C
+    DBYT $2149
+    .byte $11, $72, $73, $74, $75, $76, $77, $78, $79, $7A, $7B, $7C, $7D, $7E, $7F, $40, $41, $32
+    DBYT $215A
+    .byte VU_REPEAT | $06, $5C
+
 
     ; Terminator
     .byte $00
 
+; Last line of "AROBAM"
 TitleScreen_LogoLine12:
     DBYT $2160
-    .byte $20, $5C, $5C, $5C, $5C, $5C, $A0, $A1, $A2, $A3, $A4, $A5, $A6, $A7, $A8, $A9
-    .byte $AA, $AB, $AC, $AD, $AE, $AF, $F0, $F1, $F2, $F3, $F4, $F5, $5C, $5C, $5C, $5C
-    .byte $5C
+    .byte VU_REPEAT | $0A, $5C
+    DBYT $216A
+    .byte $16, $83, $84, $85, $86, $87, $88, $89, $8A, $8B, $8C, $8D, $8E, $8F, $50, $51, $13
+    .byte $E0, $E1, $E2, $5C, $5C, $5C
 
     ; Terminator
     .byte $00
 
+; First line of "ADVENTURES"
 TitleScreen_LogoLine13:
     DBYT $2180
-    .byte $20, $5B, $6B, $5C, $5C, $5C, $B0, $B1, $B2, $B3, $B4, $B5, $B6, $B7, $B8, $B9
-    .byte $BA, $BB, $BC, $BD, $BE, $BF, $C6, $C7, $C8, $D6, $D7, $D8, $E8, $04, $05, $06
-    .byte $07
-
+    .byte VU_REPEAT | $06, $5C
+    DBYT $2186
+    .byte $1A, $0F, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $9A, $9B, $9C, $9D, $9E, $9F
+    .byte $60, $61, $23, $F0, $F1, $F2, $5C, $5C, $5C
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine14:
     DBYT $21A0
-    .byte VU_REPEAT | $0E, $5C
-
-    DBYT $21AE
-    .byte $12, $C9, $CA, $CB, $CC, $CD, $CE, $CF, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $14
-    .byte $21, $21, $17
+    .byte VU_REPEAT | $06, $5C
+    DBYT $21A6
+    .byte $1A, $1F, $A0, $A1, $A2, $A3, $A4, $A5, $A6, $A7, $A8, $A9, $AA, $AB, $AC, $AD, $AE, $AF
+    .byte $04, $05, $33, $E3, $E4, $E5, $5C, $5C, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine15:
     DBYT $21C0
-    .byte VU_REPEAT | $0E, $5C
-
-    DBYT $21CE
-    .byte $12, $D9, $DA, $DB, $DC, $DD, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $20
-    .byte $21, $21, $23
+    .byte VU_REPEAT | $05, $5C
+    DBYT $21C5
+    .byte $1B, $42, $2F, $B0, $B1, $B2, $B3, $B4, $B5, $B6, $B7, $B8, $B9, $BA, $BB, $BC, $BD, $BE, $BF
+    .byte $14, $15, $0E, $F3, $F4, $F5, $5C, $5C, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine16:
     DBYT $21E0
-    .byte VU_REPEAT | $0E, $5C
-
-    DBYT $21EE
-    .byte $12, $E9, $EA, $EB, $EC, $ED, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $20
-    .byte $21, $21, $23
+    .byte VU_REPEAT | $05, $5C
+    DBYT $21E5
+    .byte $1B, $52, $3F, $C0, $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $CF
+    .byte $24, $25, $1E, $E8, $E9, $EA, $5C, $5C, $5C
 
     ; Terminator
     .byte $00
 
+; Last line of "ADVENTURES"
 TitleScreen_LogoLine17:
     DBYT $2200
-    .byte $20, $04, $05, $06, $07, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $F9
-    .byte $FA, $FB, $FF, $FD, $FE, $5C, $5C, $5C, $5C, $5C, $5C, $04, $05, $02, $03, $21
-    .byte $23
+    .byte VU_REPEAT | $06, $5C
+    DBYT $2206
+    .byte $1A, $81, $D0, $D1, $D2, $D3, $D4, $D5, $D6, $D7, $D8, $D9, $DA, $DB, $DC, $DD, $DE, $DF
+    .byte $34, $35, $80, $F8, $F9, $FA, $5C, $5C, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine18:
     DBYT $2220
-    .byte $20, $14, $21, $21, $22, $24, $25, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $6C
-    .byte $6D, $6E, $6F, $DE, $DF, $5C, $5C, $5C, $5C, $5C, $5C, $14, $21, $21, $13, $21
-    .byte $23
+    .byte VU_REPEAT | $20, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine19:
     DBYT $2240
-    .byte $20, $20, $21, $21, $23, $5F, $11, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C
-    .byte $5C, $EE, $EF, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $5C, $20, $21, $21, $21, $21
-    .byte $23
+    .byte VU_REPEAT | $10, $5C
+    DBYT $2250
+    .byte $03, $FB, $5F, $FC
+    DBYT $2253
+    .byte VU_REPEAT | $0D, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine20:
     DBYT $2260
-    .byte $06, $20, $21, $21, $23, $5F, $5F
-
-    DBYT $2266
-    .byte VU_REPEAT | $14, $5C
-
-    DBYT $227A
-    .byte $06, $20, $21, $21, $21, $21, $23
+    .byte VU_REPEAT | $10, $5C
+    DBYT $2270
+    .byte $03, $FD, $FE, $FF
+    DBYT $2273
+    .byte VU_REPEAT | $0D, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine21:
     DBYT $2280
-    .byte $06, $20, $21, $00, $01, $26, $27
-
-    DBYT $2286
-    .byte VU_REPEAT | $14, $5C
-
-    DBYT $229A
-    .byte $06, $20, $21, $21, $21, $21, $23
+    .byte VU_REPEAT | $10, $5C
+    DBYT $2290
+    .byte $03, $ED, $EE, $EF
+    DBYT $2293
+    .byte VU_REPEAT | $0D, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine22:
     DBYT $22A0
-    .byte $08, $20, $21, $10, $21, $21, $22, $24, $25
-
-    DBYT $22A8
-    .byte VU_REPEAT | $12, $5C
-
-    DBYT $22BA
-    .byte $06, $20, $21, $21, $21, $21, $23
+    .byte VU_REPEAT | $10, $5C
+    DBYT $22B0
+    .byte $03, $70, $71, $82
+    DBYT $22B3
+    .byte VU_REPEAT | $0D, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine23:
     DBYT $22C0
-    .byte $08, $20, $21, $21, $21, $21, $23, $5F, $11
-
-    DBYT $22C8
-    .byte VU_REPEAT | $10, $5C
-
-    DBYT $22D8
-    .byte $08, $04, $05, $02, $03, $21, $21, $21, $23
+    .byte VU_REPEAT | $20, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoLine24:
     DBYT $22E0
-    .byte $08, $20, $21, $21, $21, $21, $23, $5F, $5F
-
-    DBYT $22E8
-    .byte VU_REPEAT | $10, $5C
-
-    DBYT $22F8
-    .byte $08, $14, $21, $21, $13, $21, $21, $21, $23
+    .byte VU_REPEAT | $20, $5C
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoAttr1:
     DBYT $23C0
-    .byte $20, $F0, $F0, $F0, $F0, $F0, $F0, $F0, $F0, $2A, $8A, $66, $55, $55, $99, $A2
-    .byte $A8, $AA, $55, $55, $55, $55, $55, $55, $A9, $A8, $A6, $A5, $ED, $77, $B5, $A5
-    .byte $AA
+    .byte $20, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55
+    .byte $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55
+    .byte $55
 
     ; Terminator
     .byte $00
 
 TitleScreen_LogoAttr2:
     DBYT $23E0
-    .byte $20, $AA, $AA, $0A, $0E, $0F, $0B, $AA, $AA, $AA, $AA, $22, $00, $00, $00, $AA
-    .byte $AA, $00, $00, $00, $00, $00, $00, $00, $00, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-    .byte $0A
+    .byte $20, $55, $55, $55, $55, $F5, $55, $55, $55, $55, $55, $55, $55, $FF, $55, $55
+    .byte $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55, $55
+    .byte $55
 
     ; Terminator
     .byte $00
@@ -650,43 +648,43 @@ PRG025_CA9B:
 Title_FadeIn_1:
     DBYT $3F00
     .byte 16    ; 16 bytes (colors) to follow...
-    .byte $07, $0F, $00, $06, $07, $0F, $01, $02, $07, $0F, $0A, $0A, $07, $0F, $07, $02
+    .byte $01, $0F, $00, $06, $01, $0F, $01, $02, $01, $0F, $0A, $0A, $01, $0F, $00, $07
     .byte $00   ; Terminator
 
 Title_FadeIn_2:
     DBYT $3F00
     .byte 16    ; 16 bytes (colors) to follow...
-    .byte $17, $0F, $10, $16, $17, $0F, $11, $02, $17, $0F, $1A, $1A, $17, $0F, $17, $02
+    .byte $11, $0F, $10, $16, $11, $0F, $11, $02, $11, $0F, $1A, $1A, $11, $0F, $10, $17
     .byte $00   ; Terminator
 
 Title_FadeIn_3:
     DBYT $3F00
     .byte 16    ; 16 bytes (colors) to follow...
-    .byte $27, $0F, $20, $16, $27, $0F, $21, $02, $27, $0F, $2A, $1A, $27, $0F, $27, $02
+    .byte $21, $0F, $20, $16, $21, $0F, $21, $02, $21, $0F, $2A, $1A, $21, $0F, $20, $27
     .byte $00   ; Terminator
 
 Title_FadeIn_4:
     DBYT $3F00
     .byte 16    ; 16 bytes (colors) to follow...
-    .byte $37, $0F, $30, $16, $37, $0F, $21, $02, $37, $0F, $2A, $1A, $37, $0F, $27, $02
+    .byte $31, $0F, $30, $16, $31, $0F, $21, $02, $31, $0F, $2A, $1A, $31, $0F, $30, $27
     .byte $00   ; Terminator
 
 Title_LoadMenu:
 
     ; 1 PLAYER GAME
-    DBYT $226A
-    .byte 13    ; 13 bytes to follow
-    .byte $0E, $5C, $0A, $0B, $0C, $1A, $1B, $0D, $5C, $1C, $0C, $1D, $1B
+    ;DBYT $226A
+    ;.byte 13    ; 13 bytes to follow
+    ;.byte $0E, $5C, $0A, $0B, $0C, $1A, $1B, $0D, $5C, $1C, $0C, $1D, $1B
 
     ; 2 PLAYER GAME
-    DBYT $22AA
-    .byte 13    ; 13 bytes to follow
-    .byte $1E, $5C, $0A, $0B, $0C, $1A, $1B, $0D, $5C, $1C, $0C, $1D, $1B
+    ;DBYT $22AA
+    ;.byte 13    ; 13 bytes to follow
+    ;.byte $1E, $5C, $0A, $0B, $0C, $1A, $1B, $0D, $5C, $1C, $0C, $1D, $1B
 
     ; C 1988 Nintendo
-    DBYT $22EA
-    .byte 13    ; 13 bytes to follow
-    .byte $3F, $5C, $0E, $0F, $1F, $1F, $5C, $2A, $2B, $2C, $2D, $2E, $2F
+    ;DBYT $22EA
+    ;.byte 13    ; 13 bytes to follow
+    ;.byte $3F, $5C, $0E, $0F, $1F, $1F, $5C, $2A, $2B, $2C, $2D, $2E, $2F
 
     .byte $00   ; Terminator
 

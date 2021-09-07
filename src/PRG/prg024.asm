@@ -1610,7 +1610,7 @@ PRG024_A8C8:
     STA PPU_CTL1        ; use 8x16 sprites, sprites use PT2
     STA PPU_CTL1_Copy  ; Sync with PPU_CTL1_Copy
 
-    JSR Title_Display_Curtain   ; Put up the curtain!
+    ;JSR Title_Display_Curtain   ; Put up the curtain!
 
     ; Load the palette and checkerboard floor pattern
     LDA #$01     ; A = 1
@@ -1649,16 +1649,17 @@ PRG024_A930:
     LDA #%00011110
     STA PPU_CTL2_Copy  ; Setup for: No BG or sprite clipping, show BG and sprites
 
-    LDA #53
+    LDA #00
     STA Title_Ticker   ; Set Title_Ticker = 53 (initial delay prior to curtain raise)
 
 PRG024_A946:
     ; Used for VSync
-    JSR GraphicsBuf_Prep_And_WaitVSyn2
+    ;JSR GraphicsBuf_Prep_And_WaitVSyn2
 
     LDA Pad_Input
     AND #PAD_START
-    BEQ PRG024_A955  ; If Player is NOT pressing Start, jump to PRG024_A955
+    ;BEQ PRG024_A955  ; If Player is NOT pressing Start, jump to PRG024_A955
+    JSR Title_UpdateAllObjs     ; Update all title screen objects
 
     ; Player pressed START -- skips rest of intro, if any
     LDA #$06
@@ -1954,7 +1955,7 @@ PRG024_AAC8:
     LDA Title_3GlowFlag
     BEQ PRG024_AADD         ; If not glowing, jump to PRG024_AADD
 
-    JSR Title_3Glow         ; Make the big '3' glow!
+    ;JSR Title_3Glow         ; Make the big '3' glow!
 
 PRG024_AADD:
     LDA Pad_Input
@@ -2068,7 +2069,7 @@ Title_MAS_CmdFF:
 Title_MAS_CmdFE:
     ; Action script command $FE (increment Title_State, reset Title_MActScriptPos)...
 
-    INC Title_State        ; Next title state...
+    ;INC Title_State        ; Next title state...
 
     LDA #$00
     STA Title_MActScriptPos    ; Set Title_MActScriptPos = 0
@@ -2161,17 +2162,17 @@ PRG024_ABAC:
 ;
 ; The logo comes falling down...
 Title_Drop:
-    LDY #$04
+    ;LDY #$04
 
     ; Basically drops logo 4 pixels at a time, with a precise safety catch!
 PRG024_ABAF:
-    DEC Vert_Scroll
-    LDA Vert_Scroll
-    BEQ PRG024_ABB9  ; If Vert_Scroll = 0, jump to PRG024_ABB9
-    DEY      ; Y--
-    BPL PRG024_ABAF  ; If Y >= 0, loop!
+    ;DEC Vert_Scroll
+    ;LDA Vert_Scroll
+    ;BEQ PRG024_ABB9  ; If Vert_Scroll = 0, jump to PRG024_ABB9
+    ;DEY      ; Y--
+    ;BPL PRG024_ABAF  ; If Y >= 0, loop!
 
-    RTS      ; Return
+    ;RTS      ; Return
 
 PRG024_ABB9:
     ; The logo has landed!
@@ -2285,9 +2286,9 @@ PRG024_AC10:
 ;
 ; Loads in the tiles for the 1/2 PLAYER GAME and Nintendo copyright
 Title_DrawMenu:
-    LDA #$07
-    STA Graphics_Queue
-    INC Title_EventIndex   ; Do next thing (which is actually nothing; on purpose??)
+    ;LDA #$07
+    ;STA Graphics_Queue
+    ;INC Title_EventIndex   ; Do next thing (which is actually nothing; on purpose??)
     RTS         ; Return...
 
 Title_PrepForMenu:
@@ -2304,11 +2305,11 @@ Title_PrepForMenu:
     STA Title_ObjStates
 
     ; This is the counter for when to reset the title sequence
-    LDA #20
+    LDA #$FF
     STA Title_ResetCnt ; Title_ResetCnt = 20
 
     ; This is the "fine" part of the reset count; when it goes to zero, it decrements Title_ResetCnt
-    LDA #60
+    LDA #$FF
     STA Title_ResetCnt2 ; Title_ResetCnt2 = 60
 
     INC Title_State ; Next title state...
@@ -2348,36 +2349,37 @@ PRG024_AC42:
     STA Title_ResetTrig    ; Title_ResetTrig = $ff
 
 PRG024_AC52:
+    ;JSR TitleState_OpeningSequence    ; 01 - Opening sequence (updates Mario/Luigi's action scripts, the title screen objects, makes the big '3' glow...)
     JSR Title_Menu_UpdateKoopas  ; Update and draw koopas
 
     LDA Pad_Input
     AND #PAD_SELECT
     BEQ PRG024_AC6B     ; If Player is not pressing SELECT, jump to PRG024_AC6B
 
-    LDA #SND_MAPPATHMOVE
-    STA Sound_QMap      ; "Path move" sound (in this case, the "bleep" for the menu)
+    ;LDA #SND_MAPPATHMOVE
+    ;STA Sound_QMap      ; "Path move" sound (in this case, the "bleep" for the menu)
 
     ; Basically makes sure that the value of Total_Players is 0 or 1
-    INC Total_Players
-    LDA Total_Players
-    AND #$01
-    STA Total_Players
+    ;INC Total_Players
+    ;LDA Total_Players
+    ;AND #$01
+    ;STA Total_Players
 
 PRG024_AC6B:
     LDY Total_Players    ; Y = Total_Players (0 or 1)
-    LDA Title_Menu_1P2PCursorY,Y     ; Get proper Y value for where cursor is at
-    STA Sprite_RAM+$F0   ; Store into sprite
+    ;LDA Title_Menu_1P2PCursorY,Y     ; Get proper Y value for where cursor is at
+    ;STA Sprite_RAM+$F0   ; Store into sprite
 
-    LDA #$df
-    STA Sprite_RAM+$F1   ; Store pattern value into sprite
+    ;LDA #$df
+    ;STA Sprite_RAM+$F1   ; Store pattern value into sprite
 
-    LDA #$00
-    STA Sprite_RAM+$F2   ; Store attribute value into sprite
+    ;LDA #$00
+    ;STA Sprite_RAM+$F2   ; Store attribute value into sprite
 
-    LDA #72
-    STA Sprite_RAM+$F3   ; Store X value into sprite
+    ;LDA #72
+    ;STA Sprite_RAM+$F3   ; Store X value into sprite
 
-    JSR Title_3Glow     ; Keep the big '3' glowing!
+    ;JSR Title_3Glow     ; Keep the big '3' glowing!
 
     LDA Pad_Input
     AND #PAD_START
@@ -2385,32 +2387,35 @@ PRG024_AC6B:
 
     LDA #SND_LEVELCOIN
     STA Sound_QLevel1   ; Play coin sound (in this case, selected and begin!)
+    LDA #$00
+    STA SndCur_Music2
 
-    LDA Sprite_RAM+$F0  ; Get Y value of title screen cursor sprite
-    STA Title_EventGrafX   ; Reuse as a temp...
+    ;LDA Sprite_RAM+$F0  ; Get Y value of title screen cursor sprite
+    ;STA Title_EventGrafX   ; Reuse as a temp...
 
 PRG024_AC96:
     JSR GraphicsBuf_Prep_And_WaitVSyn2
 
-    INC Title_ResetCnt ; Title_ResetCnt++
+    ;INC Title_ResetCnt ; Title_ResetCnt++
 
-    LDY #$f8        ; Y = $f8 (hide title screen cursor)
+    ;LDY #$f8        ; Y = $f8 (hide title screen cursor)
 
-    LDA Title_ResetCnt
-    AND #$18
-    BEQ PRG024_ACA5  ; Periodically jump to PRG024_ACA5
+    ;LDA Title_ResetCnt
+    ;AND #$18
+    ;BEQ PRG024_ACA5  ; Periodically jump to PRG024_ACA5
 
-    LDY Title_EventGrafX   ; Y = reappear title screen cursor
+    ;LDY Title_EventGrafX   ; Y = reappear title screen cursor
 
 PRG024_ACA5:
-    STY Sprite_RAM+$F0   ; Set it!
+    ;STY Sprite_RAM+$F0   ; Set it!
 
-    JSR Title_3Glow         ; Make the big '3' glow!
+    ;JSR Title_3Glow         ; Make the big '3' glow!
 
     LDA SndCur_Level1
     BNE PRG024_AC96  ; If the "gling" sound has not ended, loop!
 
-    INC Title_State ; Title_State++
+    LDA #$04
+    STA Title_State ; Title_State++
 
     ; World_Num = 0 (World 1)
     LDA #$00
@@ -2742,7 +2747,7 @@ PRG024_AEEF:
     STA Title_ObjMLFlags,X
 
     JSR Title_AnimateMarioLuigi ; Animate Mario/Luigi
-    JSR Title_DrawMarioLuigi    ; Draw Mario/Luigi
+    ;JSR Title_DrawMarioLuigi    ; Draw Mario/Luigi
 
     LDA #$00
     STA Title_ObjXVel,X        ; Zero Mario/Luigi's X velocity
@@ -2761,7 +2766,7 @@ PRG024_AF0C:
     BNE PRG024_AF23         ; If Mario is doing the "powerup poof", jump to PRG024_AF23
 
     ; Otherwise, draw Mario and Luigi in the standard way!
-    JSR Title_DrawMarioLuigi
+    ;JSR Title_DrawMarioLuigi
 
 PRG024_AF23:
     LDA Title_XPosHi,X
@@ -3855,7 +3860,7 @@ PRG024_B3C2:
 
 
 Title_UpdateOtherObjs:
-    LDX #$05        ; X = 5 (for the 6 title screen objects)
+    LDX #$00        ; X = 5 (for the 6 title screen objects)
 
 PRG024_B3C5:
     LDA Title_ObjStates,X
@@ -3884,10 +3889,10 @@ PRG024_B3DE:
 
     ; Starting X coordinates for the different map objects
 Title_ObjStartX:
+    .byte $43   ; 3 = Goomba
     .byte $D0   ; 0 = Starman
     .byte $20   ; 1 = Mushroom
     .byte $60   ; 2 = Super Leaf
-    .byte $43   ; 3 = Goomba
     .byte $B0   ; 4 = Buzzy Beatle
     .byte $78   ; 5 = Koopa shell
 
@@ -3912,10 +3917,10 @@ Title_UpdateObjState1:
     JSR DynJump  ; Jump dynamically based on object's index
 
     ; THESE MUST FOLLOW DynJump FOR THE DYNAMIC JUMP TO WORK!!
+    .word Title_ObjS1_Goomba    ; 3 - Goomba
     .word Title_ObjS1_None      ; 0 - Starman
     .word Title_ObjS1_None      ; 1 - Mushroom
     .word Title_ObjS1_Leaf      ; 2 - Super leaf
-    .word Title_ObjS1_Goomba    ; 3 - Goomba
     .word Title_ObjS1_None      ; 4 - Buzzy Beatle
     .word Title_ObjS1_None      ; 5 - Koopa shell
 
@@ -3950,10 +3955,10 @@ Title_UpdateObj:
     JSR DynJump  ; Dynamically jump...
 
     ; THESE MUST FOLLOW DynJump FOR THE DYNAMIC JUMP TO WORK!!
+    .word Title_DoGoomba
     .word Title_DoStarman
     .word Title_DoMushroom
     .word Title_DoLeaf
-    .word Title_DoGoomba
     .word Title_DoBuzzyBeatle
     .word Title_DoKoopaShell
 
@@ -4533,10 +4538,10 @@ PRG024_B6C7:
 
     ; Showing "default" usage per object, but Title_ObjFrane can alter which one is used
 Title_ObjPatterns:
+    .byte $FB, $FD  ; 3 = Goomba
     .byte $F9, $F9  ; 0 = Starman
     .byte $F5, $F5  ; 1 = Mushroom
     .byte $F1, $F3  ; 2 = Super Leaf
-    .byte $FB, $FD  ; 3 = Goomba
     .byte $FF, $FF
     .byte $DD, $DD  ; 4 = Buzzy Beatle
     .byte $D5, $D5  ; 5 = Koopa shell
@@ -4549,7 +4554,7 @@ Title_ObjPatterns:
     ; Each of these tables contains one value per object index (0-5)
 Title_ObjPatOff:    .byte $00, $02, $04, $06, $0A, $0C  ; Root offset per object for Title_ObjPatterns
 Title_ObjSprRAMOff: .byte $40, $48, $50, $68, $60, $58  ; Offset into Sprite_RAM per object
-Title_ObjPal:       .byte $03, $00, $00, $02, $02, $03  ; Paletter per object
+Title_ObjPal:       .byte $02, $00, $00, $03, $02, $03  ; Paletter per object
 
 ; Title_ObjDraw
 ;
@@ -4973,7 +4978,7 @@ PRG024_B8C2:
     LDX #$00
     STX Title_CurMLIndex
 
-    JSR Title_DrawMarioLuigi     ; Draws Mario officially, but may be modified after this to Luigi
+    ;JSR Title_DrawMarioLuigi     ; Draws Mario officially, but may be modified after this to Luigi
 
     LDA Player_Current
     BEQ PRG024_B8E6  ; If Player is Mario, jump to PRG024_B8E6
@@ -5005,7 +5010,7 @@ PRG024_B8E6:
     INX      ; X = 1
     STX Title_CurMLIndex
 
-    JSR Title_DrawMarioLuigi     ; Actually draws the Princess
+    ;JSR Title_DrawMarioLuigi     ; Actually draws the Princess
 
     RTS      ; Return
 
@@ -5553,7 +5558,7 @@ PRG024_BBB0:
     DEX      ; X--
     BPL PRG024_BBB0  ; While X >= 0, loop
 
-    JSR Title_Display_Curtain   ; Put up the curtain!
+    ;JSR Title_Display_Curtain   ; Put up the curtain!
 
     ; Push in the Checkerboard floor
     LDA #$23
@@ -5578,8 +5583,8 @@ PRG024_BBB0:
     STA UpdSel_Disable
 
     ; Curtain extension
-    LDA #$24
-    ABS_STA Graphics_Queue ; STA Graphics_Queue
+    ;LDA #$24
+    ;ABS_STA Graphics_Queue ; STA Graphics_Queue
 
     JSR GraphicsBuf_Prep_And_WaitVSyn2
 
