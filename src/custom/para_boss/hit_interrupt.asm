@@ -10,6 +10,7 @@ para_hit_interrupt:
 	LDA objects_health, x
 	BEQ para_death_interrupt
 
+para_boss_does_not_die:
 	LDA #$08
 	STA objects_timer, x
 	STA level_viberate
@@ -26,6 +27,16 @@ para_hit_interrupt:
 
 ; Boss has died
 para_death_interrupt:
+	; Add check to see if the boss can die
+	LDA objects_v14, x
+	BEQ +
+
+	LDA #$05
+	STA objects_health, x
+	JMP para_boss_does_not_die
+
++
+	; Normal death code
 	LDA #$2B
 	STA para_state, x
 	RTS
