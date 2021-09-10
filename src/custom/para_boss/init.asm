@@ -10,6 +10,11 @@ para_boss_init:
     STA objects_v14, x
 
     LDA Objects_X, x
+    CLC
+    ROR A
+    ROR A 
+    ROR A 
+    ROR A
     AND #%00000011
     BNE +
     LDA #$07
