@@ -83,6 +83,24 @@ para_boss_action_determine_attack:
 	.word para_boss_do_lob_goomba_at_player
 	.word para_boss_do_flying
 
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_lob_paragoomba_at_player
+	.word para_boss_do_lob_paragoomba_at_player
+	.word para_boss_do_throw_paragoomba_at_player
+	.word para_boss_do_lob_flying_paragoomba_at_player
+	.word para_boss_do_flying
+
+	.word para_boss_do_spawn_micro_goombas
+	.word para_boss_do_lob_paragoomba_at_player
+	.word para_boss_do_lob_paragoomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_throw_goomba_at_player
+	.word para_boss_do_lob_goomba_at_player
+	.word para_boss_do_lob_goomba_at_player
+	.word para_boss_do_flying
+
 ; Shoot between 1 and 4 micro goombas
 para_boss_do_spawn_micro_goombas:
 	LDA cur_random+2

@@ -1,6 +1,8 @@
 
 ; Flight patterns for each phase of the fight
 para_boss_flights:
+	.byte 35, 43, 60, 13	; 6 hits
+	.byte 39, 47, 72, 26	; 5 hits
 	.byte 43, 39, 64, 0		; 4 hits
 	.byte 35, 43, 60, 13	; 3 hits
 	.byte 39, 47, 72, 26	; 2 hits
